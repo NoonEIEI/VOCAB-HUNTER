@@ -1,0 +1,2746 @@
+[
+  {
+    "mapId": "amusement_park_01",
+    "title": "Level 1: Grand Adventure Park",
+    "titleTH": "ด่าน 1: สวนสนุกมหาสนุก (40 เป้าหมาย)",
+    "mapImage": "./assets/amusement-park.webp",
+    "mapWidth": 1536,
+    "mapHeight": 1024,
+    "quests": [
+      {
+        "id": "q1",
+        "type": "sentence",
+        "targetText": "I'll have one ice cream.",
+        "phonetic": "ไอล์ แฮฟ วัน ไอซ์ ครีม",
+        "meaningTH": "ฉันขอไอศกรีม 1 อันครับ/ค่ะ",
+        "hitbox": {
+          "x": 360,
+          "y": 650,
+          "width": 100,
+          "height": 110
+        }
+      },
+      {
+        "id": "q2",
+        "type": "word",
+        "targetText": "Ferris wheel",
+        "phonetic": "เฟอร์-ริส วีล",
+        "meaningTH": "ชิงช้าสวรรค์",
+        "hitbox": {
+          "x": 1190,
+          "y": 330,
+          "width": 250,
+          "height": 320
+        }
+      },
+      {
+        "id": "q3",
+        "type": "word",
+        "targetText": "Pirate ship",
+        "phonetic": "ไพ-เรท ชิพ",
+        "meaningTH": "เรือโจรสลัด",
+        "hitbox": {
+          "x": 840,
+          "y": 340,
+          "width": 230,
+          "height": 220
+        }
+      },
+      {
+        "id": "q4",
+        "type": "sentence",
+        "targetText": "Look at that huge dinosaur skeleton!",
+        "phonetic": "ลุค แอท แดท ฮิวจ์ ได-โน-ซอร์ สเกล-เล-ทัน",
+        "meaningTH": "ดูโครงกระดูกไดโนเสาร์ยักษ์ตัวนั้นสิ!",
+        "hitbox": {
+          "x": 1290,
+          "y": 760,
+          "width": 246,
+          "height": 250
+        }
+      },
+      {
+        "id": "q5",
+        "type": "word",
+        "targetText": "Water slide",
+        "phonetic": "วอ-เทอร์ สไลด์",
+        "meaningTH": "สไลเดอร์สวนน้ำ",
+        "hitbox": {
+          "x": 140,
+          "y": 0,
+          "width": 350,
+          "height": 200
+        }
+      },
+      {
+        "id": "q6",
+        "type": "word",
+        "targetText": "Rubber duck",
+        "phonetic": "รับ-เบอร์ ดัค",
+        "meaningTH": "เป็ดยางสีเหลือง",
+        "hitbox": {
+          "x": 80,
+          "y": 110,
+          "width": 90,
+          "height": 75
+        }
+      },
+      {
+        "id": "q7",
+        "type": "sentence",
+        "targetText": "The children are swimming in the pool.",
+        "phonetic": "เดอะ ชิล-เดรน อาร์ สวิม-มิง อิน เดอะ พูล",
+        "meaningTH": "เด็ก ๆ กำลังว่ายน้ำอยู่ในสระ",
+        "hitbox": {
+          "x": 20,
+          "y": 188,
+          "width": 250,
+          "height": 57
+        }
+      },
+      {
+        "id": "q8",
+        "type": "word",
+        "targetText": "Haunted house",
+        "phonetic": "ฮอน-เท็ด เฮาส์",
+        "meaningTH": "บ้านผีสิง",
+        "hitbox": {
+          "x": 1280,
+          "y": 70,
+          "width": 256,
+          "height": 250
+        }
+      },
+      {
+        "id": "q9",
+        "type": "sentence",
+        "targetText": "Hold on tight, the roller coaster is fast!",
+        "phonetic": "โฮลด์ ออน ไทท์ เดอะ โรล-เลอร์ โคส-เทอร์ อีส ฟาสท์",
+        "meaningTH": "จับไว้แน่นๆ นะ รถไฟเหาะเร็วมาก!",
+        "hitbox": {
+          "x": 30,
+          "y": 445,
+          "width": 240,
+          "height": 150
+        }
+      },
+      {
+        "id": "q10",
+        "type": "word",
+        "targetText": "Carousel",
+        "phonetic": "แคร-รู-เซล",
+        "meaningTH": "ม้าหมุน",
+        "hitbox": {
+          "x": 370,
+          "y": 195,
+          "width": 250,
+          "height": 225
+        }
+      },
+      {
+        "id": "q11",
+        "type": "word",
+        "targetText": "Roller coaster",
+        "phonetic": "โรล-เลอร์ โคส-เทอร์",
+        "meaningTH": "รถไฟเหาะ",
+        "hitbox": {
+          "x": 150,
+          "y": 600,
+          "width": 240,
+          "height": 170
+        }
+      },
+      {
+        "id": "q12",
+        "type": "sentence",
+        "targetText": "Excuse me, have you seen my puppy?",
+        "phonetic": "เอ็กซ์-คิวส์ มี แฮฟ ยู ซีน มาย พัพ-พี",
+        "meaningTH": "ขอโทษนะคะ เห็นลูกสุนัขของฉันไหมคะ?",
+        "hitbox": {
+          "x": 1005,
+          "y": 650,
+          "width": 60,
+          "height": 60
+        }
+      },
+      {
+        "id": "q13",
+        "type": "word",
+        "targetText": "Bumper cars",
+        "phonetic": "บัม-เพอร์ คาร์ส",
+        "meaningTH": "รถบั๊ม",
+        "hitbox": {
+          "x": 0,
+          "y": 265,
+          "width": 300,
+          "height": 145
+        }
+      },
+      {
+        "id": "q14",
+        "type": "word",
+        "targetText": "Eagle",
+        "phonetic": "อี-เกิล",
+        "meaningTH": "นกอินทรี",
+        "hitbox": {
+          "x": 895,
+          "y": 175,
+          "width": 145,
+          "height": 130
+        }
+      },
+      {
+        "id": "q15",
+        "type": "sentence",
+        "targetText": "Two tickets for the circus, please.",
+        "phonetic": "ทู ทิค-เก็ตส์ ฟอร์ เดอะ เซอร์-คัส พลีส",
+        "meaningTH": "ขอตั๋วเข้าชมละครสัตว์ 2 ใบครับ/ค่ะ",
+        "hitbox": {
+          "x": 612,
+          "y": 640,
+          "width": 130,
+          "height": 135
+        }
+      },
+      {
+        "id": "q16",
+        "type": "word",
+        "targetText": "Rock climbing",
+        "phonetic": "ร็อค ไคลม์-บิง",
+        "meaningTH": "การปีนหน้าผา",
+        "hitbox": {
+          "x": 1130,
+          "y": 0,
+          "width": 170,
+          "height": 180
+        }
+      },
+      {
+        "id": "q17",
+        "type": "word",
+        "targetText": "Coffee truck",
+        "phonetic": "คอฟ-ฟี่ ทรัค",
+        "meaningTH": "รถขายกาแฟ",
+        "hitbox": {
+          "x": 690,
+          "y": 20,
+          "width": 150,
+          "height": 135
+        }
+      },
+      {
+        "id": "q18",
+        "type": "sentence",
+        "targetText": "Can we sit under the blue umbrella?",
+        "phonetic": "แคน วี ซิท อัน-เดอร์ เดอะ บลู อัม-เบรล-ละ",
+        "meaningTH": "พวกเรานั่งใต้ร่มสีฟ้าได้ไหม?",
+        "hitbox": {
+          "x": 880,
+          "y": 20,
+          "width": 220,
+          "height": 130
+        }
+      },
+      {
+        "id": "q19",
+        "type": "word",
+        "targetText": "Balloon",
+        "phonetic": "บะ-ลูน",
+        "meaningTH": "ลูกโป่ง",
+        "hitbox": {
+          "x": 740,
+          "y": 260,
+          "width": 105,
+          "height": 120
+        }
+      },
+      {
+        "id": "q20",
+        "type": "word",
+        "targetText": "Cotton candy",
+        "phonetic": "คอท-เทิน แคน-ดี้",
+        "meaningTH": "สายไหม",
+        "hitbox": {
+          "x": 325,
+          "y": 420,
+          "width": 125,
+          "height": 100
+        }
+      },
+      {
+        "id": "q21",
+        "type": "word",
+        "targetText": "Popcorn",
+        "phonetic": "ป็อป-คอร์น",
+        "meaningTH": "ป๊อปคอร์น",
+        "hitbox": {
+          "x": 500,
+          "y": 455,
+          "width": 100,
+          "height": 130
+        }
+      },
+      {
+        "id": "q22",
+        "type": "word",
+        "targetText": "Ticket booth",
+        "phonetic": "ทิค-เก็ท บูธ",
+        "meaningTH": "บูธขายตั๋ว",
+        "hitbox": {
+          "x": 612,
+          "y": 640,
+          "width": 110,
+          "height": 135
+        }
+      },
+      {
+        "id": "q23",
+        "type": "word",
+        "targetText": "Circus tent",
+        "phonetic": "เซอร์-คัส เท็นท์",
+        "meaningTH": "เต็นท์ละครสัตว์",
+        "hitbox": {
+          "x": 580,
+          "y": 150,
+          "width": 140,
+          "height": 140
+        }
+      },
+      {
+        "id": "q24",
+        "type": "word",
+        "targetText": "Magician",
+        "phonetic": "มะ-จิ-เชิน",
+        "meaningTH": "นักมายากล",
+        "hitbox": {
+          "x": 700,
+          "y": 390,
+          "width": 90,
+          "height": 120
+        }
+      },
+      {
+        "id": "q25",
+        "type": "word",
+        "targetText": "Mascot",
+        "phonetic": "แมส-คอท",
+        "meaningTH": "มาสคอต / ตัวการ์ตูนประจำงาน",
+        "hitbox": {
+          "x": 690,
+          "y": 520,
+          "width": 85,
+          "height": 125
+        }
+      },
+      {
+        "id": "q26",
+        "type": "word",
+        "targetText": "Hot dog",
+        "phonetic": "ฮอท ด็อก",
+        "meaningTH": "ฮอทด็อก",
+        "hitbox": {
+          "x": 960,
+          "y": 710,
+          "width": 120,
+          "height": 140
+        }
+      },
+      {
+        "id": "q27",
+        "type": "word",
+        "targetText": "Pumpkin",
+        "phonetic": "พัมพ์-คิน",
+        "meaningTH": "ฟักทอง",
+        "hitbox": {
+          "x": 1440,
+          "y": 305,
+          "width": 50,
+          "height": 50
+        },
+        "altHitboxes": [
+          {
+            "x": 1290,
+            "y": 295,
+            "width": 40,
+            "height": 40
+          }
+        ]
+      },
+      {
+        "id": "q28",
+        "type": "word",
+        "targetText": "Map",
+        "phonetic": "แมพ",
+        "meaningTH": "แผนที่",
+        "hitbox": {
+          "x": 830,
+          "y": 590,
+          "width": 170,
+          "height": 110
+        }
+      },
+      {
+        "id": "q29",
+        "type": "word",
+        "targetText": "Face painting",
+        "phonetic": "เฟซ เพน-ทิง",
+        "meaningTH": "การเพ้นท์หน้า",
+        "hitbox": {
+          "x": 1430,
+          "y": 610,
+          "width": 106,
+          "height": 150
+        }
+      },
+      {
+        "id": "q30",
+        "type": "word",
+        "targetText": "Souvenir shop",
+        "phonetic": "ซู-เว-เนียร์ ช็อป",
+        "meaningTH": "ร้านขายของที่ระลึก",
+        "hitbox": {
+          "x": 1440,
+          "y": 500,
+          "width": 96,
+          "height": 105
+        }
+      },
+      {
+        "id": "q31",
+        "type": "sentence",
+        "targetText": "The man is selling balloons.",
+        "phonetic": "เดอะ แมน อีส เซล-ลิง บะ-ลูนส์",
+        "meaningTH": "ผู้ชายคนนั้นกำลังขายลูกโป่ง",
+        "hitbox": {
+          "x": 740,
+          "y": 260,
+          "width": 105,
+          "height": 140
+        }
+      },
+      {
+        "id": "q32",
+        "type": "sentence",
+        "targetText": "Everyone is screaming on the pirate ship!",
+        "phonetic": "เอฟ-วรี-วัน อีส สครีม-มิง ออน เดอะ ไพ-เรท ชิพ",
+        "meaningTH": "ทุกคนกำลังกรี๊ดอยู่บนเรือโจรสลัด!",
+        "hitbox": {
+          "x": 870,
+          "y": 410,
+          "width": 170,
+          "height": 110
+        }
+      },
+      {
+        "id": "q33",
+        "type": "sentence",
+        "targetText": "Where is the restroom, please?",
+        "phonetic": "แวร์ อีส เดอะ เรสท์-รูม พลีส",
+        "meaningTH": "ห้องน้ำอยู่ที่ไหนครับ/คะ?",
+        "hitbox": {
+          "x": 0,
+          "y": 710,
+          "width": 150,
+          "height": 170
+        }
+      },
+      {
+        "id": "q34",
+        "type": "sentence",
+        "targetText": "Can you take a picture of us?",
+        "phonetic": "แคน ยู เทค อะ พิค-เชอร์ ออฟ อัส",
+        "meaningTH": "ช่วยถ่ายรูปให้พวกเราหน่อยได้ไหม?",
+        "hitbox": {
+          "x": 1150,
+          "y": 720,
+          "width": 120,
+          "height": 150
+        }
+      },
+      {
+        "id": "q35",
+        "type": "sentence",
+        "targetText": "The magician pulled a rabbit out of his hat.",
+        "phonetic": "เดอะ มะ-จิ-เชิน พุลด์ อะ แรบ-บิท เอาท์ ออฟ ฮิส แฮท",
+        "meaningTH": "นักมายากลดึงกระต่ายออกมาจากหมวก",
+        "hitbox": {
+          "x": 700,
+          "y": 390,
+          "width": 90,
+          "height": 120
+        }
+      },
+      {
+        "id": "q36",
+        "type": "sentence",
+        "targetText": "Let's ride the Ferris wheel together!",
+        "phonetic": "เล็ทส์ ไรด์ เดอะ เฟอร์-ริส วีล ทู-เก-เธอร์",
+        "meaningTH": "ไปเล่นชิงช้าสวรรค์ด้วยกันเถอะ!",
+        "hitbox": {
+          "x": 1245,
+          "y": 630,
+          "width": 95,
+          "height": 125
+        }
+      },
+      {
+        "id": "q37",
+        "type": "sentence",
+        "targetText": "The little boy dropped his ice cream.",
+        "phonetic": "เดอะ ลิท-เทิล บอย ดร็อพท์ ฮิส ไอซ์ ครีม",
+        "meaningTH": "เด็กผู้ชายตัวเล็กทำไอศกรีมหล่น",
+        "hitbox": {
+          "x": 1100,
+          "y": 900,
+          "width": 140,
+          "height": 110
+        }
+      },
+      {
+        "id": "q38",
+        "type": "sentence",
+        "targetText": "You must be this tall to ride.",
+        "phonetic": "ยู มัสท์ บี ดิส ทอล ทู ไรด์",
+        "meaningTH": "ต้องสูงเท่านี้ถึงจะเล่นได้",
+        "hitbox": {
+          "x": 840,
+          "y": 760,
+          "width": 60,
+          "height": 95
+        }
+      },
+      {
+        "id": "q39",
+        "type": "sentence",
+        "targetText": "The bear mascot is waving at the kids.",
+        "phonetic": "เดอะ แบร์ แมส-คอท อีส เว-วิง แอท เดอะ คิดส์",
+        "meaningTH": "มาสคอตหมีกำลังโบกมือให้เด็ก ๆ",
+        "hitbox": {
+          "x": 690,
+          "y": 520,
+          "width": 85,
+          "height": 125
+        }
+      },
+      {
+        "id": "q40",
+        "type": "sentence",
+        "targetText": "The parade starts at five o'clock.",
+        "phonetic": "เดอะ พะ-เรด สตาร์ทส์ แอท ไฟว์ โอ-คล็อก",
+        "meaningTH": "ขบวนพาเหรดเริ่มตอนห้าโมงเย็น",
+        "hitbox": {
+          "x": 320,
+          "y": 780,
+          "width": 500,
+          "height": 240
+        }
+      }
+    ]
+  },
+  {
+    "mapId": "city_cafe_02",
+    "title": "Level 2: Bustling City Plaza",
+    "titleTH": "ด่าน 2: ลานเมืองและคาเฟ่ (40 เป้าหมาย)",
+    "mapImage": "./assets/city-cafe.webp",
+    "mapWidth": 1536,
+    "mapHeight": 1024,
+    "quests": [
+      {
+        "id": "c1",
+        "type": "sentence",
+        "targetText": "The family is eating at the café.",
+        "phonetic": "เดอะ แฟม-มิ-ลี่ อีส อี-ทิง แอท เดอะ คา-เฟ่",
+        "meaningTH": "ครอบครัวกำลังกินข้าวอยู่ที่คาเฟ่",
+        "hitbox": {
+          "x": 190,
+          "y": 130,
+          "width": 310,
+          "height": 110
+        }
+      },
+      {
+        "id": "c2",
+        "type": "word",
+        "targetText": "Bicycle",
+        "phonetic": "ไบ-ซิ-เคิล",
+        "meaningTH": "รถจักรยาน",
+        "hitbox": {
+          "x": 1170,
+          "y": 745,
+          "width": 95,
+          "height": 80
+        }
+      },
+      {
+        "id": "c3",
+        "type": "sentence",
+        "targetText": "What time does the bookstore open?",
+        "phonetic": "วอท ไทม์ ดัส เดอะ บุ๊ค-สโตร์ โอ-เพิน",
+        "meaningTH": "ร้านหนังสือเปิดกี่โมงครับ?",
+        "hitbox": {
+          "x": 130,
+          "y": 665,
+          "width": 90,
+          "height": 120
+        }
+      },
+      {
+        "id": "c4",
+        "type": "sentence",
+        "targetText": "Excuse me, where is the subway station?",
+        "phonetic": "เอ็กซ์-คิวส์ มี แวร์ อีส เดอะ ซับ-เวย์ สเต-ชัน",
+        "meaningTH": "ขอโทษครับ สถานีรถไฟใต้ดินอยู่ที่ไหนครับ?",
+        "hitbox": {
+          "x": 890,
+          "y": 475,
+          "width": 95,
+          "height": 125
+        }
+      },
+      {
+        "id": "c5",
+        "type": "sentence",
+        "targetText": "Fresh croissants just came out of the oven!",
+        "phonetic": "เฟรช ครัว-ซองส์ จัสท์ เคม เอาท์ ออฟ เดอะ โอ-เวิน",
+        "meaningTH": "ครัวซองต์อบสดใหม่เพิ่งออกจากเตาเลย!",
+        "hitbox": {
+          "x": 550,
+          "y": 145,
+          "width": 110,
+          "height": 85
+        }
+      },
+      {
+        "id": "c6",
+        "type": "word",
+        "targetText": "Umbrella",
+        "phonetic": "อัม-เบรล-ละ",
+        "meaningTH": "ร่ม",
+        "hitbox": {
+          "x": 85,
+          "y": 780,
+          "width": 105,
+          "height": 110
+        }
+      },
+      {
+        "id": "c7",
+        "type": "word",
+        "targetText": "Mailbox",
+        "phonetic": "เมล-บ็อกซ์",
+        "meaningTH": "ตู้ไปรษณีย์",
+        "hitbox": {
+          "x": 652,
+          "y": 328,
+          "width": 55,
+          "height": 85
+        }
+      },
+      {
+        "id": "c8",
+        "type": "word",
+        "targetText": "Guitar",
+        "phonetic": "กิ-ทาร์",
+        "meaningTH": "กีตาร์",
+        "hitbox": {
+          "x": 655,
+          "y": 680,
+          "width": 110,
+          "height": 125
+        }
+      },
+      {
+        "id": "c9",
+        "type": "word",
+        "targetText": "Clock",
+        "phonetic": "คล็อก",
+        "meaningTH": "นาฬิกา",
+        "hitbox": {
+          "x": 1335,
+          "y": 30,
+          "width": 140,
+          "height": 200
+        }
+      },
+      {
+        "id": "c10",
+        "type": "sentence",
+        "targetText": "I'd like to buy a bouquet of flowers.",
+        "phonetic": "ไอด์ ไลค์ ทู บาย อะ บู-เค ออฟ ฟลาว-เวอร์ส",
+        "meaningTH": "ฉันอยากซื้อช่อดอกไม้สักช่อ",
+        "hitbox": {
+          "x": 735,
+          "y": 140,
+          "width": 60,
+          "height": 115
+        }
+      },
+      {
+        "id": "c11",
+        "type": "word",
+        "targetText": "Taxi",
+        "phonetic": "แท็ก-ซี่",
+        "meaningTH": "รถแท็กซี่",
+        "hitbox": {
+          "x": 375,
+          "y": 415,
+          "width": 170,
+          "height": 100
+        }
+      },
+      {
+        "id": "c12",
+        "type": "word",
+        "targetText": "Double-decker bus",
+        "phonetic": "ดับ-เบิล เดค-เคอร์ บัส",
+        "meaningTH": "รถเมล์สองชั้น",
+        "hitbox": {
+          "x": 60,
+          "y": 315,
+          "width": 320,
+          "height": 230
+        }
+      },
+      {
+        "id": "c13",
+        "type": "word",
+        "targetText": "Traffic light",
+        "phonetic": "แทรฟ-ฟิค ไลท์",
+        "meaningTH": "สัญญาณไฟจราจร",
+        "hitbox": {
+          "x": 893,
+          "y": 350,
+          "width": 40,
+          "height": 75
+        }
+      },
+      {
+        "id": "c14",
+        "type": "word",
+        "targetText": "Fire hydrant",
+        "phonetic": "ไฟร์ ไฮ-แดรนท์",
+        "meaningTH": "หัวดับเพลิง",
+        "hitbox": {
+          "x": 775,
+          "y": 485,
+          "width": 35,
+          "height": 55
+        },
+        "altHitboxes": [
+          {
+            "x": 405,
+            "y": 350,
+            "width": 35,
+            "height": 50
+          }
+        ]
+      },
+      {
+        "id": "c15",
+        "type": "sentence",
+        "targetText": "Please keep your dog on a leash.",
+        "phonetic": "พลีส คีพ ยัวร์ ด็อก ออน อะ ลีช",
+        "meaningTH": "กรุณาใส่สายจูงสุนัขของคุณด้วยครับ",
+        "hitbox": {
+          "x": 1130,
+          "y": 355,
+          "width": 165,
+          "height": 145
+        }
+      },
+      {
+        "id": "c16",
+        "type": "word",
+        "targetText": "Crosswalk",
+        "phonetic": "ครอส-วอล์ค",
+        "meaningTH": "ทางม้าลาย",
+        "hitbox": {
+          "x": 450,
+          "y": 515,
+          "width": 250,
+          "height": 60
+        }
+      },
+      {
+        "id": "c17",
+        "type": "word",
+        "targetText": "Waiter",
+        "phonetic": "เว-เทอร์",
+        "meaningTH": "พนักงานเสิร์ฟ",
+        "hitbox": {
+          "x": 495,
+          "y": 295,
+          "width": 65,
+          "height": 120
+        }
+      },
+      {
+        "id": "c18",
+        "type": "word",
+        "targetText": "Menu",
+        "phonetic": "เม-นิว",
+        "meaningTH": "เมนู / รายการอาหาร",
+        "hitbox": {
+          "x": 528,
+          "y": 212,
+          "width": 50,
+          "height": 52
+        }
+      },
+      {
+        "id": "c19",
+        "type": "word",
+        "targetText": "Bench",
+        "phonetic": "เบ็นช์",
+        "meaningTH": "ม้านั่ง",
+        "hitbox": {
+          "x": 320,
+          "y": 925,
+          "width": 150,
+          "height": 85
+        }
+      },
+      {
+        "id": "c20",
+        "type": "word",
+        "targetText": "Street lamp",
+        "phonetic": "สตรีท แลมพ์",
+        "meaningTH": "เสาไฟถนน",
+        "hitbox": {
+          "x": 628,
+          "y": 275,
+          "width": 40,
+          "height": 210
+        }
+      },
+      {
+        "id": "c21",
+        "type": "word",
+        "targetText": "Pigeon",
+        "phonetic": "พิ-เจิน",
+        "meaningTH": "นกพิราบ",
+        "hitbox": {
+          "x": 1065,
+          "y": 385,
+          "width": 60,
+          "height": 40
+        }
+      },
+      {
+        "id": "c22",
+        "type": "word",
+        "targetText": "Museum",
+        "phonetic": "มิว-เซียม",
+        "meaningTH": "พิพิธภัณฑ์",
+        "hitbox": {
+          "x": 815,
+          "y": 0,
+          "width": 250,
+          "height": 145
+        }
+      },
+      {
+        "id": "c23",
+        "type": "word",
+        "targetText": "Police officer",
+        "phonetic": "โพ-ลีส ออฟ-ฟิ-เซอร์",
+        "meaningTH": "ตำรวจ",
+        "hitbox": {
+          "x": 1130,
+          "y": 590,
+          "width": 55,
+          "height": 110
+        }
+      },
+      {
+        "id": "c24",
+        "type": "word",
+        "targetText": "Delivery truck",
+        "phonetic": "ดิ-ลิฟ-เวอ-รี่ ทรัค",
+        "meaningTH": "รถส่งของ",
+        "hitbox": {
+          "x": 1350,
+          "y": 470,
+          "width": 186,
+          "height": 150
+        }
+      },
+      {
+        "id": "c25",
+        "type": "word",
+        "targetText": "Shopping bag",
+        "phonetic": "ช็อป-ปิ้ง แบ็ก",
+        "meaningTH": "ถุงช้อปปิ้ง",
+        "hitbox": {
+          "x": 1225,
+          "y": 625,
+          "width": 70,
+          "height": 120
+        }
+      },
+      {
+        "id": "c26",
+        "type": "word",
+        "targetText": "Newspaper",
+        "phonetic": "นิวส์-เพ-เพอร์",
+        "meaningTH": "หนังสือพิมพ์",
+        "hitbox": {
+          "x": 1070,
+          "y": 272,
+          "width": 70,
+          "height": 75
+        }
+      },
+      {
+        "id": "c27",
+        "type": "word",
+        "targetText": "Scooter",
+        "phonetic": "สกู-เทอร์",
+        "meaningTH": "สกู๊ตเตอร์",
+        "hitbox": {
+          "x": 188,
+          "y": 868,
+          "width": 95,
+          "height": 135
+        }
+      },
+      {
+        "id": "c28",
+        "type": "word",
+        "targetText": "Bus stop",
+        "phonetic": "บัส สต็อป",
+        "meaningTH": "ป้ายรถเมล์",
+        "hitbox": {
+          "x": 385,
+          "y": 568,
+          "width": 275,
+          "height": 50
+        }
+      },
+      {
+        "id": "c29",
+        "type": "sentence",
+        "targetText": "The children are crossing the road.",
+        "phonetic": "เดอะ ชิล-เดรน อาร์ ครอส-ซิง เดอะ โรด",
+        "meaningTH": "เด็ก ๆ กำลังข้ามถนน",
+        "hitbox": {
+          "x": 815,
+          "y": 600,
+          "width": 90,
+          "height": 110
+        }
+      },
+      {
+        "id": "c30",
+        "type": "sentence",
+        "targetText": "Can I have the bill, please?",
+        "phonetic": "แคน ไอ แฮฟ เดอะ บิล พลีส",
+        "meaningTH": "ขอเช็กบิลด้วยครับ/ค่ะ",
+        "hitbox": {
+          "x": 1010,
+          "y": 775,
+          "width": 80,
+          "height": 125
+        }
+      },
+      {
+        "id": "c31",
+        "type": "sentence",
+        "targetText": "He is taking a photo with his camera.",
+        "phonetic": "ฮี อีส เท-คิง อะ โฟ-โท วิธ ฮิส แคม-เม-ร่า",
+        "meaningTH": "เขากำลังถ่ายรูปด้วยกล้อง",
+        "hitbox": {
+          "x": 1150,
+          "y": 830,
+          "width": 75,
+          "height": 80
+        }
+      },
+      {
+        "id": "c32",
+        "type": "sentence",
+        "targetText": "Turn left at the traffic light.",
+        "phonetic": "เทิร์น เลฟท์ แอท เดอะ แทรฟ-ฟิค ไลท์",
+        "meaningTH": "เลี้ยวซ้ายที่ไฟจราจร",
+        "hitbox": {
+          "x": 785,
+          "y": 560,
+          "width": 60,
+          "height": 90
+        }
+      },
+      {
+        "id": "c33",
+        "type": "sentence",
+        "targetText": "The bus is late again!",
+        "phonetic": "เดอะ บัส อีส เลท อะ-เกน",
+        "meaningTH": "รถเมล์มาสายอีกแล้ว!",
+        "hitbox": {
+          "x": 400,
+          "y": 620,
+          "width": 250,
+          "height": 110
+        }
+      },
+      {
+        "id": "c34",
+        "type": "sentence",
+        "targetText": "Do you have Wi-Fi here?",
+        "phonetic": "ดู ยู แฮฟ ไว-ไฟ เฮียร์",
+        "meaningTH": "ที่นี่มีไวไฟไหมครับ?",
+        "hitbox": {
+          "x": 820,
+          "y": 740,
+          "width": 110,
+          "height": 165
+        }
+      },
+      {
+        "id": "c35",
+        "type": "sentence",
+        "targetText": "I'm waiting for my friend.",
+        "phonetic": "ไอม์ เว-ทิง ฟอร์ มาย เฟรนด์",
+        "meaningTH": "ฉันกำลังรอเพื่อนอยู่",
+        "hitbox": {
+          "x": 1355,
+          "y": 370,
+          "width": 60,
+          "height": 85
+        }
+      },
+      {
+        "id": "c36",
+        "type": "sentence",
+        "targetText": "Let's buy some flowers for Mom.",
+        "phonetic": "เล็ทส์ บาย ซัม ฟลาว-เวอร์ส ฟอร์ มัม",
+        "meaningTH": "ไปซื้อดอกไม้ให้แม่กันเถอะ",
+        "hitbox": {
+          "x": 1350,
+          "y": 660,
+          "width": 186,
+          "height": 200
+        }
+      },
+      {
+        "id": "c37",
+        "type": "sentence",
+        "targetText": "It's raining, let's go inside.",
+        "phonetic": "อิทส์ เร-นิง เล็ทส์ โก อิน-ไซด์",
+        "meaningTH": "ฝนตกแล้ว เข้าข้างในกันเถอะ",
+        "hitbox": {
+          "x": 50,
+          "y": 80,
+          "width": 115,
+          "height": 140
+        }
+      },
+      {
+        "id": "c38",
+        "type": "sentence",
+        "targetText": "Is there a pharmacy near here?",
+        "phonetic": "อีส แดร์ อะ ฟาร์-มะ-ซี เนียร์ เฮียร์",
+        "meaningTH": "แถวนี้มีร้านขายยาไหมครับ?",
+        "hitbox": {
+          "x": 195,
+          "y": 540,
+          "width": 165,
+          "height": 250
+        }
+      },
+      {
+        "id": "c39",
+        "type": "sentence",
+        "targetText": "The bakery is next to the flower shop.",
+        "phonetic": "เดอะ เบ-เคอ-รี่ อีส เน็กซ์ ทู เดอะ ฟลาว-เวอร์ ช็อป",
+        "meaningTH": "ร้านเบเกอรี่อยู่ข้างร้านดอกไม้",
+        "hitbox": {
+          "x": 660,
+          "y": 60,
+          "width": 145,
+          "height": 85
+        }
+      },
+      {
+        "id": "c40",
+        "type": "sentence",
+        "targetText": "Look both ways before you cross.",
+        "phonetic": "ลุค โบธ เวย์ส บิ-ฟอร์ ยู ครอส",
+        "meaningTH": "มองซ้ายมองขวาก่อนข้ามถนน",
+        "hitbox": {
+          "x": 640,
+          "y": 395,
+          "width": 160,
+          "height": 150
+        }
+      }
+    ]
+  },
+  {
+    "mapId": "weekend_market_03",
+    "title": "Level 3: Weekend Farmers Market",
+    "titleTH": "ด่าน 3: ตลาดนัดสุดสัปดาห์ (40 เป้าหมาย)",
+    "mapImage": "./assets/weekend-market.webp",
+    "mapWidth": 1536,
+    "mapHeight": 1024,
+    "quests": [
+      {
+        "id": "m1",
+        "type": "sentence",
+        "targetText": "How much are these strawberries?",
+        "phonetic": "ฮาว มัช อาร์ ธีส สตรอว์-เบอร์-รีส์",
+        "meaningTH": "สตรอว์เบอร์รีพวกนี้ราคาเท่าไหร่ครับ?",
+        "hitbox": {
+          "x": 545,
+          "y": 488,
+          "width": 115,
+          "height": 55
+        }
+      },
+      {
+        "id": "m2",
+        "type": "word",
+        "targetText": "Sunflower",
+        "phonetic": "ซัน-ฟลาว-เวอร์",
+        "meaningTH": "ดอกทานตะวัน",
+        "hitbox": {
+          "x": 0,
+          "y": 280,
+          "width": 175,
+          "height": 110
+        }
+      },
+      {
+        "id": "m3",
+        "type": "sentence",
+        "targetText": "Can I feed the rabbit?",
+        "phonetic": "แคน ไอ ฟีด เดอะ แรบ-บิท",
+        "meaningTH": "ฉันขอให้อาหารกระต่ายได้ไหมคะ?",
+        "hitbox": {
+          "x": 880,
+          "y": 590,
+          "width": 95,
+          "height": 110
+        }
+      },
+      {
+        "id": "m4",
+        "type": "word",
+        "targetText": "Watermelon",
+        "phonetic": "วอ-เทอร์-เม-ลอน",
+        "meaningTH": "แตงโม",
+        "hitbox": {
+          "x": 620,
+          "y": 445,
+          "width": 105,
+          "height": 50
+        }
+      },
+      {
+        "id": "m5",
+        "type": "sentence",
+        "targetText": "I'm looking for a handmade hat.",
+        "phonetic": "ไอม์ ลุค-กิง ฟอร์ อะ แฮนด์-เมด แฮท",
+        "meaningTH": "ฉันกำลังมองหาหมวกทำมือสักใบ",
+        "hitbox": {
+          "x": 1145,
+          "y": 355,
+          "width": 105,
+          "height": 125
+        }
+      },
+      {
+        "id": "m6",
+        "type": "word",
+        "targetText": "Backpack",
+        "phonetic": "แบ็ค-แพ็ค",
+        "meaningTH": "กระเป๋าเป้สะพายหลัง",
+        "hitbox": {
+          "x": 325,
+          "y": 640,
+          "width": 85,
+          "height": 105
+        }
+      },
+      {
+        "id": "m7",
+        "type": "sentence",
+        "targetText": "Let's take a photo by the clock!",
+        "phonetic": "เล็ทส์ เทค อะ โฟ-โท บาย เดอะ คล็อก",
+        "meaningTH": "มาถ่ายรูปตรงหอนาฬิกากันเถอะ!",
+        "hitbox": {
+          "x": 1205,
+          "y": 160,
+          "width": 240,
+          "height": 160
+        }
+      },
+      {
+        "id": "m8",
+        "type": "word",
+        "targetText": "Pineapple",
+        "phonetic": "ไพน์-แอป-เพิล",
+        "meaningTH": "สับปะรด",
+        "hitbox": {
+          "x": 380,
+          "y": 430,
+          "width": 130,
+          "height": 60
+        }
+      },
+      {
+        "id": "m9",
+        "type": "sentence",
+        "targetText": "Do you accept credit cards?",
+        "phonetic": "ดู ยู แอค-เซ็พท์ เคร-ดิท คาร์ดส์",
+        "meaningTH": "ที่นี่รับบัตรเครดิตไหมครับ?",
+        "hitbox": {
+          "x": 1285,
+          "y": 690,
+          "width": 95,
+          "height": 100
+        }
+      },
+      {
+        "id": "m10",
+        "type": "word",
+        "targetText": "Skateboard",
+        "phonetic": "สเก็ต-บอร์ด",
+        "meaningTH": "สเก็ตบอร์ด",
+        "hitbox": {
+          "x": 1025,
+          "y": 270,
+          "width": 90,
+          "height": 110
+        }
+      },
+      {
+        "id": "m11",
+        "type": "word",
+        "targetText": "Alpaca",
+        "phonetic": "อัล-พา-คา",
+        "meaningTH": "อัลปาก้า",
+        "hitbox": {
+          "x": 35,
+          "y": 140,
+          "width": 115,
+          "height": 115
+        }
+      },
+      {
+        "id": "m12",
+        "type": "word",
+        "targetText": "Clown",
+        "phonetic": "คลาวน์",
+        "meaningTH": "ตัวตลก",
+        "hitbox": {
+          "x": 465,
+          "y": 235,
+          "width": 125,
+          "height": 180
+        }
+      },
+      {
+        "id": "m13",
+        "type": "word",
+        "targetText": "Picnic basket",
+        "phonetic": "พิค-นิค บาส-เก็ต",
+        "meaningTH": "ตะกร้าปิกนิก",
+        "hitbox": {
+          "x": 740,
+          "y": 930,
+          "width": 95,
+          "height": 75
+        }
+      },
+      {
+        "id": "m14",
+        "type": "word",
+        "targetText": "Drum",
+        "phonetic": "ดรัม",
+        "meaningTH": "กลอง",
+        "hitbox": {
+          "x": 438,
+          "y": 80,
+          "width": 70,
+          "height": 45
+        }
+      },
+      {
+        "id": "m15",
+        "type": "word",
+        "targetText": "Speaker",
+        "phonetic": "สปี-เกอร์",
+        "meaningTH": "ลำโพง",
+        "hitbox": {
+          "x": 325,
+          "y": 40,
+          "width": 50,
+          "height": 80
+        },
+        "altHitboxes": [
+          {
+            "x": 612,
+            "y": 40,
+            "width": 45,
+            "height": 85
+          }
+        ]
+      },
+      {
+        "id": "m16",
+        "type": "word",
+        "targetText": "Scale",
+        "phonetic": "สเกล",
+        "meaningTH": "ตาชั่ง",
+        "hitbox": {
+          "x": 935,
+          "y": 375,
+          "width": 90,
+          "height": 85
+        }
+      },
+      {
+        "id": "m17",
+        "type": "word",
+        "targetText": "Mirror",
+        "phonetic": "มิร์-เรอร์",
+        "meaningTH": "กระจกเงา",
+        "hitbox": {
+          "x": 1450,
+          "y": 390,
+          "width": 65,
+          "height": 170
+        }
+      },
+      {
+        "id": "m18",
+        "type": "word",
+        "targetText": "Honey",
+        "phonetic": "ฮัน-นี่",
+        "meaningTH": "น้ำผึ้ง",
+        "hitbox": {
+          "x": 15,
+          "y": 760,
+          "width": 215,
+          "height": 100
+        }
+      },
+      {
+        "id": "m19",
+        "type": "word",
+        "targetText": "Cheese",
+        "phonetic": "ชีส",
+        "meaningTH": "ชีส",
+        "hitbox": {
+          "x": 665,
+          "y": 330,
+          "width": 140,
+          "height": 75
+        }
+      },
+      {
+        "id": "m20",
+        "type": "word",
+        "targetText": "Stage",
+        "phonetic": "สเตจ",
+        "meaningTH": "เวที",
+        "hitbox": {
+          "x": 300,
+          "y": 120,
+          "width": 365,
+          "height": 65
+        }
+      },
+      {
+        "id": "m21",
+        "type": "word",
+        "targetText": "Tent",
+        "phonetic": "เท็นท์",
+        "meaningTH": "เต็นท์",
+        "hitbox": {
+          "x": 1395,
+          "y": 205,
+          "width": 141,
+          "height": 95
+        },
+        "altHitboxes": [
+          {
+            "x": 1220,
+            "y": 295,
+            "width": 190,
+            "height": 70
+          }
+        ]
+      },
+      {
+        "id": "m22",
+        "type": "word",
+        "targetText": "Goat",
+        "phonetic": "โกท",
+        "meaningTH": "แพะ",
+        "hitbox": {
+          "x": 160,
+          "y": 185,
+          "width": 95,
+          "height": 75
+        }
+      },
+      {
+        "id": "m23",
+        "type": "word",
+        "targetText": "Pony",
+        "phonetic": "โพ-นี่",
+        "meaningTH": "ม้าแคระ",
+        "hitbox": {
+          "x": 245,
+          "y": 175,
+          "width": 95,
+          "height": 95
+        }
+      },
+      {
+        "id": "m24",
+        "type": "word",
+        "targetText": "Lemonade",
+        "phonetic": "เล-มะ-เนด",
+        "meaningTH": "น้ำมะนาว",
+        "hitbox": {
+          "x": 0,
+          "y": 380,
+          "width": 245,
+          "height": 230
+        }
+      },
+      {
+        "id": "m25",
+        "type": "word",
+        "targetText": "Carrot",
+        "phonetic": "แคร์-รอท",
+        "meaningTH": "แครอท",
+        "hitbox": {
+          "x": 590,
+          "y": 765,
+          "width": 100,
+          "height": 70
+        }
+      },
+      {
+        "id": "m26",
+        "type": "word",
+        "targetText": "Necklace",
+        "phonetic": "เน็ค-เลซ",
+        "meaningTH": "สร้อยคอ",
+        "hitbox": {
+          "x": 690,
+          "y": 60,
+          "width": 220,
+          "height": 145
+        }
+      },
+      {
+        "id": "m27",
+        "type": "word",
+        "targetText": "Pottery",
+        "phonetic": "พอท-เทอ-รี่",
+        "meaningTH": "เครื่องปั้นดินเผา",
+        "hitbox": {
+          "x": 940,
+          "y": 40,
+          "width": 210,
+          "height": 175
+        }
+      },
+      {
+        "id": "m28",
+        "type": "word",
+        "targetText": "Handbag",
+        "phonetic": "แฮนด์-แบ็ก",
+        "meaningTH": "กระเป๋าถือ",
+        "hitbox": {
+          "x": 1290,
+          "y": 570,
+          "width": 240,
+          "height": 110
+        }
+      },
+      {
+        "id": "m29",
+        "type": "sentence",
+        "targetText": "Can I try this on?",
+        "phonetic": "แคน ไอ ไทร ดิส ออน",
+        "meaningTH": "ขอลองใส่ตัวนี้ได้ไหม?",
+        "hitbox": {
+          "x": 1375,
+          "y": 405,
+          "width": 75,
+          "height": 180
+        }
+      },
+      {
+        "id": "m30",
+        "type": "sentence",
+        "targetText": "The band is playing music.",
+        "phonetic": "เดอะ แบนด์ อีส เพลย์-อิง มิว-สิค",
+        "meaningTH": "วงดนตรีกำลังเล่นดนตรี",
+        "hitbox": {
+          "x": 375,
+          "y": 10,
+          "width": 230,
+          "height": 70
+        }
+      },
+      {
+        "id": "m31",
+        "type": "sentence",
+        "targetText": "I'll take two kilos, please.",
+        "phonetic": "ไอล์ เทค ทู คี-โลส พลีส",
+        "meaningTH": "ขอสองกิโลครับ/ค่ะ",
+        "hitbox": {
+          "x": 1025,
+          "y": 385,
+          "width": 75,
+          "height": 135
+        }
+      },
+      {
+        "id": "m32",
+        "type": "sentence",
+        "targetText": "These dresses are so pretty!",
+        "phonetic": "ธีส เดรส-เซส อาร์ โซ พริท-ตี้",
+        "meaningTH": "ชุดพวกนี้สวยมากเลย!",
+        "hitbox": {
+          "x": 1285,
+          "y": 360,
+          "width": 90,
+          "height": 110
+        }
+      },
+      {
+        "id": "m33",
+        "type": "sentence",
+        "targetText": "This watermelon is so juicy!",
+        "phonetic": "ดิส วอ-เทอร์-เม-ลอน อีส โซ จู-ซี่",
+        "meaningTH": "แตงโมชิ้นนี้ฉ่ำมาก!",
+        "hitbox": {
+          "x": 625,
+          "y": 875,
+          "width": 95,
+          "height": 110
+        }
+      },
+      {
+        "id": "m34",
+        "type": "sentence",
+        "targetText": "Can I pay by QR code?",
+        "phonetic": "แคน ไอ เพ บาย คิว-อาร์ โคด",
+        "meaningTH": "จ่ายด้วยคิวอาร์โค้ดได้ไหม?",
+        "hitbox": {
+          "x": 225,
+          "y": 755,
+          "width": 105,
+          "height": 115
+        }
+      },
+      {
+        "id": "m35",
+        "type": "sentence",
+        "targetText": "The keeper is looking after the animals.",
+        "phonetic": "เดอะ คี-เปอร์ อีส ลุค-กิง อาฟ-เตอร์ ดิ แอ-นิ-มอลส์",
+        "meaningTH": "ผู้ดูแลกำลังดูแลสัตว์",
+        "hitbox": {
+          "x": 165,
+          "y": 90,
+          "width": 60,
+          "height": 90
+        }
+      },
+      {
+        "id": "m36",
+        "type": "sentence",
+        "targetText": "This bag is too expensive for me.",
+        "phonetic": "ดิส แบ็ก อีส ทู เอ็กซ์-เพน-ซิฟ ฟอร์ มี",
+        "meaningTH": "กระเป๋าใบนี้แพงเกินไปสำหรับฉัน",
+        "hitbox": {
+          "x": 1195,
+          "y": 615,
+          "width": 110,
+          "height": 145
+        }
+      },
+      {
+        "id": "m37",
+        "type": "sentence",
+        "targetText": "The boy is having lunch on the blanket.",
+        "phonetic": "เดอะ บอย อีส แฮฟ-วิง ลันช์ ออน เดอะ แบลง-เก็ท",
+        "meaningTH": "เด็กผู้ชายกำลังกินข้าวกลางวันบนผ้าปู",
+        "hitbox": {
+          "x": 765,
+          "y": 840,
+          "width": 105,
+          "height": 95
+        }
+      },
+      {
+        "id": "m38",
+        "type": "sentence",
+        "targetText": "The goat is eating my map!",
+        "phonetic": "เดอะ โกท อีส อี-ทิง มาย แมพ",
+        "meaningTH": "แพะกำลังกินแผนที่ของฉัน!",
+        "hitbox": {
+          "x": 1020,
+          "y": 760,
+          "width": 115,
+          "height": 140
+        }
+      },
+      {
+        "id": "m39",
+        "type": "sentence",
+        "targetText": "He is carrying a bag of vegetables.",
+        "phonetic": "ฮี อีส แคร์-รี่-อิง อะ แบ็ก ออฟ เวจ-เท-เบิลส์",
+        "meaningTH": "เขากำลังถือถุงผัก",
+        "hitbox": {
+          "x": 515,
+          "y": 800,
+          "width": 85,
+          "height": 160
+        }
+      },
+      {
+        "id": "m40",
+        "type": "sentence",
+        "targetText": "The little house has a red roof.",
+        "phonetic": "เดอะ ลิท-เทิล เฮาส์ แฮส อะ เรด รูฟ",
+        "meaningTH": "บ้านหลังเล็กมีหลังคาสีแดง",
+        "hitbox": {
+          "x": 80,
+          "y": 45,
+          "width": 160,
+          "height": 90
+        }
+      }
+    ]
+  },
+  {
+    "mapId": "sunny_beach_04",
+    "title": "Level 4: Sunset Beach Resort",
+    "titleTH": "ด่าน 4: ชายหาดยามเย็น (40 เป้าหมาย)",
+    "mapImage": "./assets/sunny-beach.webp",
+    "mapWidth": 1536,
+    "mapHeight": 1024,
+    "quests": [
+      {
+        "id": "b1",
+        "type": "word",
+        "targetText": "Surfboard",
+        "phonetic": "เซิร์ฟ-บอร์ด",
+        "meaningTH": "กระดานโต้คลื่น",
+        "hitbox": {
+          "x": 40,
+          "y": 250,
+          "width": 115,
+          "height": 140
+        },
+        "altHitboxes": [
+          {
+            "x": 1470,
+            "y": 600,
+            "width": 60,
+            "height": 160
+          }
+        ]
+      },
+      {
+        "id": "b2",
+        "type": "sentence",
+        "targetText": "Could you put on some sunscreen?",
+        "phonetic": "คูด ยู พุท ออน ซัม ซัน-สกรีน",
+        "meaningTH": "ช่วยทาครีมกันแดดหน่อยได้ไหม?",
+        "hitbox": {
+          "x": 330,
+          "y": 600,
+          "width": 190,
+          "height": 140
+        }
+      },
+      {
+        "id": "b3",
+        "type": "word",
+        "targetText": "Sandcastle",
+        "phonetic": "แซนด์-แคส-เซิล",
+        "meaningTH": "ปราสาททราย",
+        "hitbox": {
+          "x": 690,
+          "y": 450,
+          "width": 90,
+          "height": 120
+        }
+      },
+      {
+        "id": "b4",
+        "type": "word",
+        "targetText": "Lighthouse",
+        "phonetic": "ไลท์-เฮาส์",
+        "meaningTH": "ประภาคาร",
+        "hitbox": {
+          "x": 1405,
+          "y": 15,
+          "width": 45,
+          "height": 70
+        }
+      },
+      {
+        "id": "b5",
+        "type": "sentence",
+        "targetText": "Two coconut shakes, please!",
+        "phonetic": "ทู โค-โค-นัท เชคส์ พลีส",
+        "meaningTH": "ขอมะพร้าวปั่น 2 แก้วครับ!",
+        "hitbox": {
+          "x": 290,
+          "y": 410,
+          "width": 170,
+          "height": 190
+        }
+      },
+      {
+        "id": "b6",
+        "type": "word",
+        "targetText": "Sailboat",
+        "phonetic": "เซล-โบ๊ท",
+        "meaningTH": "เรือใบ",
+        "hitbox": {
+          "x": 450,
+          "y": 20,
+          "width": 85,
+          "height": 105
+        }
+      },
+      {
+        "id": "b7",
+        "type": "sentence",
+        "targetText": "Let's play beach volleyball!",
+        "phonetic": "เล็ทส์ เพลย์ บีช วอล-เลย์-บอล",
+        "meaningTH": "มาเล่นวอลเลย์บอลชายหาดกันเถอะ!",
+        "hitbox": {
+          "x": 560,
+          "y": 270,
+          "width": 230,
+          "height": 150
+        }
+      },
+      {
+        "id": "b8",
+        "type": "word",
+        "targetText": "Sunglasses",
+        "phonetic": "ซัน-กลาส-เซส",
+        "meaningTH": "แว่นกันแดด",
+        "hitbox": {
+          "x": 575,
+          "y": 920,
+          "width": 75,
+          "height": 45
+        }
+      },
+      {
+        "id": "b9",
+        "type": "sentence",
+        "targetText": "Watch out for the big wave!",
+        "phonetic": "วอทช์ เอาท์ ฟอร์ เดอะ บิ๊ก เวฟ",
+        "meaningTH": "ระวังคลื่นลูกใหญ่ด้วยนะ!",
+        "hitbox": {
+          "x": 590,
+          "y": 140,
+          "width": 390,
+          "height": 80
+        }
+      },
+      {
+        "id": "b10",
+        "type": "word",
+        "targetText": "Seashell",
+        "phonetic": "ซี-เชลล์",
+        "meaningTH": "เปลือกหอย",
+        "hitbox": {
+          "x": 695,
+          "y": 940,
+          "width": 50,
+          "height": 45
+        }
+      },
+      {
+        "id": "b11",
+        "type": "word",
+        "targetText": "Snorkel",
+        "phonetic": "สนอร์-เกิล",
+        "meaningTH": "ท่อหายใจดำน้ำตื้น",
+        "hitbox": {
+          "x": 515,
+          "y": 170,
+          "width": 75,
+          "height": 50
+        }
+      },
+      {
+        "id": "b12",
+        "type": "word",
+        "targetText": "Dolphin",
+        "phonetic": "ดอล-ฟิน",
+        "meaningTH": "ปลาโลมา",
+        "hitbox": {
+          "x": 640,
+          "y": 70,
+          "width": 110,
+          "height": 85
+        }
+      },
+      {
+        "id": "b13",
+        "type": "word",
+        "targetText": "Crab",
+        "phonetic": "แครบ",
+        "meaningTH": "ปู",
+        "hitbox": {
+          "x": 760,
+          "y": 960,
+          "width": 65,
+          "height": 55
+        },
+        "altHitboxes": [
+          {
+            "x": 1250,
+            "y": 685,
+            "width": 50,
+            "height": 40
+          }
+        ]
+      },
+      {
+        "id": "b14",
+        "type": "word",
+        "targetText": "Beach umbrella",
+        "phonetic": "บีช อัม-เบรล-ละ",
+        "meaningTH": "ร่มชายหาด",
+        "hitbox": {
+          "x": 300,
+          "y": 860,
+          "width": 240,
+          "height": 160
+        },
+        "altHitboxes": [
+          {
+            "x": 460,
+            "y": 555,
+            "width": 175,
+            "height": 85
+          },
+          {
+            "x": 830,
+            "y": 310,
+            "width": 155,
+            "height": 90
+          }
+        ]
+      },
+      {
+        "id": "b15",
+        "type": "word",
+        "targetText": "Lifeguard",
+        "phonetic": "ไลฟ์-การ์ด",
+        "meaningTH": "ไลฟ์การ์ด / เจ้าหน้าที่ช่วยชีวิต",
+        "hitbox": {
+          "x": 1120,
+          "y": 155,
+          "width": 80,
+          "height": 90
+        }
+      },
+      {
+        "id": "b16",
+        "type": "word",
+        "targetText": "Towel",
+        "phonetic": "ทาว-เวิล",
+        "meaningTH": "ผ้าเช็ดตัว",
+        "hitbox": {
+          "x": 390,
+          "y": 690,
+          "width": 190,
+          "height": 60
+        }
+      },
+      {
+        "id": "b17",
+        "type": "word",
+        "targetText": "Bucket",
+        "phonetic": "บัค-เก็ท",
+        "meaningTH": "ถังน้ำ",
+        "hitbox": {
+          "x": 695,
+          "y": 565,
+          "width": 35,
+          "height": 40
+        }
+      },
+      {
+        "id": "b18",
+        "type": "word",
+        "targetText": "Starfish",
+        "phonetic": "สตาร์-ฟิช",
+        "meaningTH": "ปลาดาว",
+        "hitbox": {
+          "x": 840,
+          "y": 985,
+          "width": 40,
+          "height": 35
+        }
+      },
+      {
+        "id": "b19",
+        "type": "word",
+        "targetText": "Seagull",
+        "phonetic": "ซี-กัล",
+        "meaningTH": "นกนางนวล",
+        "hitbox": {
+          "x": 1060,
+          "y": 680,
+          "width": 85,
+          "height": 70
+        },
+        "altHitboxes": [
+          {
+            "x": 1070,
+            "y": 760,
+            "width": 80,
+            "height": 60
+          }
+        ]
+      },
+      {
+        "id": "b20",
+        "type": "word",
+        "targetText": "Kite",
+        "phonetic": "ไคท์",
+        "meaningTH": "ว่าว",
+        "hitbox": {
+          "x": 270,
+          "y": 15,
+          "width": 85,
+          "height": 80
+        }
+      },
+      {
+        "id": "b21",
+        "type": "word",
+        "targetText": "Flip-flops",
+        "phonetic": "ฟลิพ-ฟล็อปส์",
+        "meaningTH": "รองเท้าแตะ",
+        "hitbox": {
+          "x": 860,
+          "y": 945,
+          "width": 95,
+          "height": 50
+        }
+      },
+      {
+        "id": "b22",
+        "type": "word",
+        "targetText": "Swimsuit",
+        "phonetic": "สวิม-สูท",
+        "meaningTH": "ชุดว่ายน้ำ",
+        "hitbox": {
+          "x": 715,
+          "y": 300,
+          "width": 70,
+          "height": 90
+        }
+      },
+      {
+        "id": "b23",
+        "type": "word",
+        "targetText": "Jet ski",
+        "phonetic": "เจ็ท สกี",
+        "meaningTH": "เจ็ทสกี",
+        "hitbox": {
+          "x": 840,
+          "y": 120,
+          "width": 90,
+          "height": 55
+        }
+      },
+      {
+        "id": "b24",
+        "type": "word",
+        "targetText": "Palm tree",
+        "phonetic": "ปาล์ม ทรี",
+        "meaningTH": "ต้นปาล์ม / ต้นมะพร้าว",
+        "hitbox": {
+          "x": 270,
+          "y": 100,
+          "width": 190,
+          "height": 160
+        },
+        "altHitboxes": [
+          {
+            "x": 0,
+            "y": 0,
+            "width": 220,
+            "height": 200
+          }
+        ]
+      },
+      {
+        "id": "b25",
+        "type": "word",
+        "targetText": "Hammock",
+        "phonetic": "แฮม-ม็อค",
+        "meaningTH": "เปลญวน",
+        "hitbox": {
+          "x": 40,
+          "y": 570,
+          "width": 200,
+          "height": 110
+        }
+      },
+      {
+        "id": "b26",
+        "type": "word",
+        "targetText": "Life jacket",
+        "phonetic": "ไลฟ์ แจ็ค-เก็ท",
+        "meaningTH": "เสื้อชูชีพ",
+        "hitbox": {
+          "x": 285,
+          "y": 280,
+          "width": 95,
+          "height": 70
+        }
+      },
+      {
+        "id": "b27",
+        "type": "word",
+        "targetText": "Life ring",
+        "phonetic": "ไลฟ์ ริง",
+        "meaningTH": "ห่วงชูชีพ",
+        "hitbox": {
+          "x": 1470,
+          "y": 525,
+          "width": 60,
+          "height": 65
+        }
+      },
+      {
+        "id": "b28",
+        "type": "sentence",
+        "targetText": "The water is so cold!",
+        "phonetic": "เดอะ วอ-เทอร์ อีส โซ โคลด์",
+        "meaningTH": "น้ำเย็นมากเลย!",
+        "hitbox": {
+          "x": 985,
+          "y": 185,
+          "width": 60,
+          "height": 50
+        }
+      },
+      {
+        "id": "b29",
+        "type": "sentence",
+        "targetText": "The boy is surfing on a wave.",
+        "phonetic": "เดอะ บอย อีส เซิร์ฟ-ฟิง ออน อะ เวฟ",
+        "meaningTH": "เด็กผู้ชายกำลังโต้คลื่น",
+        "hitbox": {
+          "x": 1290,
+          "y": 275,
+          "width": 85,
+          "height": 80
+        }
+      },
+      {
+        "id": "b30",
+        "type": "sentence",
+        "targetText": "I got sunburned on my back.",
+        "phonetic": "ไอ ก็อท ซัน-เบิร์นด์ ออน มาย แบ็ค",
+        "meaningTH": "หลังฉันโดนแดดเผาจนไหม้",
+        "hitbox": {
+          "x": 900,
+          "y": 390,
+          "width": 100,
+          "height": 230
+        }
+      },
+      {
+        "id": "b31",
+        "type": "sentence",
+        "targetText": "Let's watch the sunset together.",
+        "phonetic": "เล็ทส์ วอทช์ เดอะ ซัน-เซ็ท ทู-เก-เธอร์",
+        "meaningTH": "ไปดูพระอาทิตย์ตกด้วยกันเถอะ",
+        "hitbox": {
+          "x": 1060,
+          "y": 40,
+          "width": 130,
+          "height": 70
+        }
+      },
+      {
+        "id": "b32",
+        "type": "sentence",
+        "targetText": "Can I rent a surfboard here?",
+        "phonetic": "แคน ไอ เร็นท์ อะ เซิร์ฟ-บอร์ด เฮียร์",
+        "meaningTH": "เช่ากระดานโต้คลื่นที่นี่ได้ไหม?",
+        "hitbox": {
+          "x": 140,
+          "y": 275,
+          "width": 110,
+          "height": 140
+        }
+      },
+      {
+        "id": "b33",
+        "type": "sentence",
+        "targetText": "A crab pinched my toe!",
+        "phonetic": "อะ แครบ พินช์ท มาย โท",
+        "meaningTH": "ปูหนีบนิ้วเท้าฉัน!",
+        "hitbox": {
+          "x": 1150,
+          "y": 565,
+          "width": 130,
+          "height": 160
+        }
+      },
+      {
+        "id": "b34",
+        "type": "sentence",
+        "targetText": "She is taking a photo of her friends.",
+        "phonetic": "ชี อีส เท-คิง อะ โฟ-โท ออฟ เฮอร์ เฟรนด์ส",
+        "meaningTH": "เธอกำลังถ่ายรูปเพื่อน ๆ",
+        "hitbox": {
+          "x": 90,
+          "y": 730,
+          "width": 100,
+          "height": 140
+        }
+      },
+      {
+        "id": "b35",
+        "type": "sentence",
+        "targetText": "Help! My hat is blowing away!",
+        "phonetic": "เฮลพ์ มาย แฮท อีส โบล-อิง อะ-เวย์",
+        "meaningTH": "ช่วยด้วย! หมวกฉันปลิวไปแล้ว!",
+        "hitbox": {
+          "x": 1040,
+          "y": 440,
+          "width": 190,
+          "height": 200
+        }
+      },
+      {
+        "id": "b36",
+        "type": "sentence",
+        "targetText": "What time is the boat trip?",
+        "phonetic": "วอท ไทม์ อีส เดอะ โบท ทริพ",
+        "meaningTH": "ทริปนั่งเรือออกกี่โมง?",
+        "hitbox": {
+          "x": 1200,
+          "y": 130,
+          "width": 336,
+          "height": 120
+        }
+      },
+      {
+        "id": "b37",
+        "type": "sentence",
+        "targetText": "Let's dig a big hole in the sand!",
+        "phonetic": "เล็ทส์ ดิก อะ บิ๊ก โฮล อิน เดอะ แซนด์",
+        "meaningTH": "มาขุดหลุมใหญ่ในทรายกันเถอะ!",
+        "hitbox": {
+          "x": 560,
+          "y": 770,
+          "width": 280,
+          "height": 180
+        }
+      },
+      {
+        "id": "b38",
+        "type": "sentence",
+        "targetText": "Please don't feed the seagulls.",
+        "phonetic": "พลีส โดนท์ ฟีด เดอะ ซี-กัลส์",
+        "meaningTH": "กรุณาอย่าให้อาหารนกนางนวล",
+        "hitbox": {
+          "x": 1150,
+          "y": 760,
+          "width": 95,
+          "height": 150
+        }
+      },
+      {
+        "id": "b39",
+        "type": "sentence",
+        "targetText": "The red flag means danger.",
+        "phonetic": "เดอะ เรด แฟลก มีนส์ เดน-เจอร์",
+        "meaningTH": "ธงแดงหมายถึงอันตราย",
+        "hitbox": {
+          "x": 1195,
+          "y": 235,
+          "width": 55,
+          "height": 55
+        }
+      },
+      {
+        "id": "b40",
+        "type": "sentence",
+        "targetText": "I can see a ship on the horizon.",
+        "phonetic": "ไอ แคน ซี อะ ชิพ ออน เดอะ ฮะ-ไร-เซิน",
+        "meaningTH": "ฉันมองเห็นเรือที่เส้นขอบฟ้า",
+        "hitbox": {
+          "x": 1220,
+          "y": 120,
+          "width": 65,
+          "height": 85
+        }
+      }
+    ]
+  },
+  {
+    "mapId": "school_05",
+    "title": "Level 5: A Busy Day at School",
+    "titleTH": "ด่าน 5: วันวุ่น ๆ ที่โรงเรียน (40 เป้าหมาย)",
+    "mapImage": "./assets/school.webp",
+    "mapWidth": 1536,
+    "mapHeight": 1024,
+    "quests": [
+      {
+        "id": "s1",
+        "type": "word",
+        "targetText": "Blackboard",
+        "phonetic": "แบล็ค-บอร์ด",
+        "meaningTH": "กระดานดำ",
+        "hitbox": {
+          "x": 245,
+          "y": 40,
+          "width": 195,
+          "height": 80
+        }
+      },
+      {
+        "id": "s2",
+        "type": "word",
+        "targetText": "Teacher",
+        "phonetic": "ที-เชอร์",
+        "meaningTH": "คุณครู",
+        "hitbox": {
+          "x": 340,
+          "y": 70,
+          "width": 80,
+          "height": 120
+        }
+      },
+      {
+        "id": "s3",
+        "type": "word",
+        "targetText": "Globe",
+        "phonetic": "โกลบ",
+        "meaningTH": "ลูกโลก",
+        "hitbox": {
+          "x": 500,
+          "y": 55,
+          "width": 45,
+          "height": 50
+        }
+      },
+      {
+        "id": "s4",
+        "type": "word",
+        "targetText": "Microscope",
+        "phonetic": "ไม-โคร-สโคป",
+        "meaningTH": "กล้องจุลทรรศน์",
+        "hitbox": {
+          "x": 640,
+          "y": 110,
+          "width": 60,
+          "height": 70
+        }
+      },
+      {
+        "id": "s5",
+        "type": "word",
+        "targetText": "Piano",
+        "phonetic": "เพีย-โน",
+        "meaningTH": "เปียโน",
+        "hitbox": {
+          "x": 960,
+          "y": 60,
+          "width": 150,
+          "height": 110
+        }
+      },
+      {
+        "id": "s6",
+        "type": "word",
+        "targetText": "Trophy",
+        "phonetic": "โทร-ฟี่",
+        "meaningTH": "ถ้วยรางวัล",
+        "hitbox": {
+          "x": 955,
+          "y": 15,
+          "width": 30,
+          "height": 45
+        },
+        "altHitboxes": [
+          {
+            "x": 1160,
+            "y": 0,
+            "width": 30,
+            "height": 45
+          }
+        ]
+      },
+      {
+        "id": "s7",
+        "type": "word",
+        "targetText": "Locker",
+        "phonetic": "ล็อค-เกอร์",
+        "meaningTH": "ตู้ล็อกเกอร์",
+        "hitbox": {
+          "x": 610,
+          "y": 265,
+          "width": 170,
+          "height": 85
+        }
+      },
+      {
+        "id": "s8",
+        "type": "word",
+        "targetText": "Bookshelf",
+        "phonetic": "บุ๊ค-เชลฟ์",
+        "meaningTH": "ชั้นวางหนังสือ",
+        "hitbox": {
+          "x": 1335,
+          "y": 200,
+          "width": 200,
+          "height": 120
+        },
+        "altHitboxes": [
+          {
+            "x": 1060,
+            "y": 215,
+            "width": 200,
+            "height": 55
+          }
+        ]
+      },
+      {
+        "id": "s9",
+        "type": "word",
+        "targetText": "Computer",
+        "phonetic": "คอม-พิว-เตอร์",
+        "meaningTH": "คอมพิวเตอร์",
+        "hitbox": {
+          "x": 1355,
+          "y": 365,
+          "width": 55,
+          "height": 50
+        }
+      },
+      {
+        "id": "s10",
+        "type": "word",
+        "targetText": "School bus",
+        "phonetic": "สกูล บัส",
+        "meaningTH": "รถโรงเรียน",
+        "hitbox": {
+          "x": 1255,
+          "y": 830,
+          "width": 281,
+          "height": 190
+        }
+      },
+      {
+        "id": "s11",
+        "type": "word",
+        "targetText": "Flag",
+        "phonetic": "แฟลก",
+        "meaningTH": "ธง",
+        "hitbox": {
+          "x": 525,
+          "y": 545,
+          "width": 95,
+          "height": 80
+        }
+      },
+      {
+        "id": "s12",
+        "type": "word",
+        "targetText": "Basketball hoop",
+        "phonetic": "บาส-เก็ต-บอล ฮูพ",
+        "meaningTH": "แป้นบาสเกตบอล",
+        "hitbox": {
+          "x": 20,
+          "y": 560,
+          "width": 110,
+          "height": 150
+        }
+      },
+      {
+        "id": "s13",
+        "type": "word",
+        "targetText": "Seesaw",
+        "phonetic": "ซี-ซอ",
+        "meaningTH": "ไม้กระดก",
+        "hitbox": {
+          "x": 55,
+          "y": 470,
+          "width": 160,
+          "height": 95
+        }
+      },
+      {
+        "id": "s14",
+        "type": "word",
+        "targetText": "Slide",
+        "phonetic": "สไลด์",
+        "meaningTH": "สไลเดอร์ (กระดานลื่น)",
+        "hitbox": {
+          "x": 60,
+          "y": 260,
+          "width": 180,
+          "height": 200
+        }
+      },
+      {
+        "id": "s15",
+        "type": "word",
+        "targetText": "Easel",
+        "phonetic": "อี-เซิล",
+        "meaningTH": "ขาตั้งวาดภาพ",
+        "hitbox": {
+          "x": 470,
+          "y": 280,
+          "width": 120,
+          "height": 140
+        }
+      },
+      {
+        "id": "s16",
+        "type": "word",
+        "targetText": "Test tube",
+        "phonetic": "เทสท์ ทิวบ์",
+        "meaningTH": "หลอดทดลอง",
+        "hitbox": {
+          "x": 595,
+          "y": 40,
+          "width": 140,
+          "height": 70
+        }
+      },
+      {
+        "id": "s17",
+        "type": "word",
+        "targetText": "Sink",
+        "phonetic": "ซิงค์",
+        "meaningTH": "อ่างล้างมือ",
+        "hitbox": {
+          "x": 680,
+          "y": 680,
+          "width": 260,
+          "height": 130
+        }
+      },
+      {
+        "id": "s18",
+        "type": "word",
+        "targetText": "Volcano model",
+        "phonetic": "วอล-เค-โน มอด-เดิล",
+        "meaningTH": "แบบจำลองภูเขาไฟ",
+        "hitbox": {
+          "x": 1355,
+          "y": 680,
+          "width": 90,
+          "height": 70
+        }
+      },
+      {
+        "id": "s19",
+        "type": "word",
+        "targetText": "Basketball",
+        "phonetic": "บาส-เก็ต-บอล",
+        "meaningTH": "บาสเกตบอล",
+        "hitbox": {
+          "x": 150,
+          "y": 620,
+          "width": 250,
+          "height": 190
+        }
+      },
+      {
+        "id": "s20",
+        "type": "word",
+        "targetText": "Cafeteria",
+        "phonetic": "แคฟ-เฟ-ที-เรีย",
+        "meaningTH": "โรงอาหาร",
+        "hitbox": {
+          "x": 780,
+          "y": 560,
+          "width": 370,
+          "height": 190
+        }
+      },
+      {
+        "id": "s21",
+        "type": "word",
+        "targetText": "School gate",
+        "phonetic": "สกูล เกท",
+        "meaningTH": "ประตูโรงเรียน",
+        "hitbox": {
+          "x": 380,
+          "y": 780,
+          "width": 320,
+          "height": 170
+        }
+      },
+      {
+        "id": "s22",
+        "type": "word",
+        "targetText": "Lab coat",
+        "phonetic": "แล็บ โคท",
+        "meaningTH": "เสื้อกาวน์ห้องแล็บ",
+        "hitbox": {
+          "x": 840,
+          "y": 65,
+          "width": 70,
+          "height": 110
+        }
+      },
+      {
+        "id": "s23",
+        "type": "word",
+        "targetText": "Apron",
+        "phonetic": "เอ-พรอน",
+        "meaningTH": "ผ้ากันเปื้อน",
+        "hitbox": {
+          "x": 410,
+          "y": 305,
+          "width": 60,
+          "height": 140
+        }
+      },
+      {
+        "id": "s24",
+        "type": "word",
+        "targetText": "Desk",
+        "phonetic": "เด็สก์",
+        "meaningTH": "โต๊ะเรียน",
+        "hitbox": {
+          "x": 250,
+          "y": 150,
+          "width": 300,
+          "height": 90
+        }
+      },
+      {
+        "id": "s25",
+        "type": "sentence",
+        "targetText": "Who knows the answer to this question?",
+        "phonetic": "ฮู โนวส์ ดิ แอน-เซอร์ ทู ดิส เควส-ชัน",
+        "meaningTH": "ใครรู้คำตอบของคำถามนี้บ้าง?",
+        "hitbox": {
+          "x": 390,
+          "y": 95,
+          "width": 190,
+          "height": 110
+        }
+      },
+      {
+        "id": "s26",
+        "type": "sentence",
+        "targetText": "Please be quiet in the library.",
+        "phonetic": "พลีส บี ไคว-เอ็ท อิน เดอะ ไล-บรา-รี่",
+        "meaningTH": "กรุณาเงียบในห้องสมุด",
+        "hitbox": {
+          "x": 1240,
+          "y": 240,
+          "width": 60,
+          "height": 110
+        }
+      },
+      {
+        "id": "s27",
+        "type": "sentence",
+        "targetText": "Don't run in the hallway!",
+        "phonetic": "โดนท์ รัน อิน เดอะ ฮอล-เวย์",
+        "meaningTH": "อย่าวิ่งในทางเดิน!",
+        "hitbox": {
+          "x": 845,
+          "y": 275,
+          "width": 160,
+          "height": 125
+        }
+      },
+      {
+        "id": "s28",
+        "type": "sentence",
+        "targetText": "Let's play tag at break time!",
+        "phonetic": "เล็ทส์ เพลย์ แท็ก แอท เบรค ไทม์",
+        "meaningTH": "พักแล้วมาเล่นไล่จับกัน!",
+        "hitbox": {
+          "x": 230,
+          "y": 470,
+          "width": 270,
+          "height": 170
+        }
+      },
+      {
+        "id": "s29",
+        "type": "sentence",
+        "targetText": "Wait! The school bus is leaving!",
+        "phonetic": "เวท เดอะ สกูล บัส อีส ลี-วิง",
+        "meaningTH": "รอด้วย! รถโรงเรียนจะออกแล้ว!",
+        "hitbox": {
+          "x": 1100,
+          "y": 880,
+          "width": 90,
+          "height": 110
+        }
+      },
+      {
+        "id": "s30",
+        "type": "sentence",
+        "targetText": "Happy birthday, teacher!",
+        "phonetic": "แฮป-ปี้ เบิร์ธ-เดย์ ที-เชอร์",
+        "meaningTH": "สุขสันต์วันเกิดค่ะคุณครู!",
+        "hitbox": {
+          "x": 960,
+          "y": 455,
+          "width": 140,
+          "height": 120
+        }
+      },
+      {
+        "id": "s31",
+        "type": "sentence",
+        "targetText": "I'm late for class!",
+        "phonetic": "ไอม์ เลท ฟอร์ คลาส",
+        "meaningTH": "ฉันเข้าเรียนสายแล้ว!",
+        "hitbox": {
+          "x": 1290,
+          "y": 525,
+          "width": 95,
+          "height": 145
+        }
+      },
+      {
+        "id": "s32",
+        "type": "sentence",
+        "targetText": "Can you help me with my science project?",
+        "phonetic": "แคน ยู เฮลพ์ มี วิธ มาย ไซ-เอินซ์ โพร-เจ็คท์",
+        "meaningTH": "ช่วยฉันทำโครงงานวิทยาศาสตร์หน่อยได้ไหม?",
+        "hitbox": {
+          "x": 1320,
+          "y": 675,
+          "width": 155,
+          "height": 95
+        }
+      },
+      {
+        "id": "s33",
+        "type": "sentence",
+        "targetText": "Wash your hands before lunch.",
+        "phonetic": "วอช ยัวร์ แฮนด์ส บิ-ฟอร์ ลันช์",
+        "meaningTH": "ล้างมือก่อนกินข้าวกลางวัน",
+        "hitbox": {
+          "x": 650,
+          "y": 650,
+          "width": 280,
+          "height": 150
+        }
+      },
+      {
+        "id": "s34",
+        "type": "sentence",
+        "targetText": "I got a perfect score!",
+        "phonetic": "ไอ ก็อท อะ เพอร์-เฟ็คท์ สกอร์",
+        "meaningTH": "ฉันได้คะแนนเต็ม!",
+        "hitbox": {
+          "x": 1180,
+          "y": 700,
+          "width": 110,
+          "height": 120
+        }
+      },
+      {
+        "id": "s35",
+        "type": "sentence",
+        "targetText": "Pass the ball to me!",
+        "phonetic": "พาส เดอะ บอล ทู มี",
+        "meaningTH": "ส่งบอลมาให้ฉัน!",
+        "hitbox": {
+          "x": 35,
+          "y": 685,
+          "width": 80,
+          "height": 120
+        }
+      },
+      {
+        "id": "s36",
+        "type": "sentence",
+        "targetText": "The students are playing music together.",
+        "phonetic": "เดอะ สตู-เดนท์ส อาร์ เพลย์-อิง มิว-สิค ทู-เก-เธอร์",
+        "meaningTH": "นักเรียนกำลังเล่นดนตรีด้วยกัน",
+        "hitbox": {
+          "x": 1100,
+          "y": 60,
+          "width": 240,
+          "height": 130
+        }
+      },
+      {
+        "id": "s37",
+        "type": "sentence",
+        "targetText": "The art teacher is showing a painting.",
+        "phonetic": "ดิ อาร์ท ที-เชอร์ อีส โชว์-อิง อะ เพน-ทิง",
+        "meaningTH": "ครูศิลปะกำลังโชว์ภาพวาด",
+        "hitbox": {
+          "x": 405,
+          "y": 300,
+          "width": 140,
+          "height": 150
+        }
+      },
+      {
+        "id": "s38",
+        "type": "sentence",
+        "targetText": "The boy is looking through a microscope.",
+        "phonetic": "เดอะ บอย อีส ลุค-กิง ธรู อะ ไม-โคร-สโคป",
+        "meaningTH": "เด็กผู้ชายกำลังส่องกล้องจุลทรรศน์",
+        "hitbox": {
+          "x": 620,
+          "y": 110,
+          "width": 80,
+          "height": 110
+        }
+      },
+      {
+        "id": "s39",
+        "type": "sentence",
+        "targetText": "The girl is going down the slide.",
+        "phonetic": "เดอะ เกิร์ล อีส โก-อิง ดาวน์ เดอะ สไลด์",
+        "meaningTH": "เด็กผู้หญิงกำลังลื่นลงสไลเดอร์",
+        "hitbox": {
+          "x": 100,
+          "y": 320,
+          "width": 90,
+          "height": 105
+        }
+      },
+      {
+        "id": "s40",
+        "type": "sentence",
+        "targetText": "Let's eat lunch together.",
+        "phonetic": "เล็ทส์ อีท ลันช์ ทู-เก-เธอร์",
+        "meaningTH": "มากินข้าวกลางวันด้วยกันเถอะ",
+        "hitbox": {
+          "x": 880,
+          "y": 640,
+          "width": 260,
+          "height": 110
+        }
+      }
+    ]
+  }
+]
