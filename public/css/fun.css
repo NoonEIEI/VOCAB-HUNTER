@@ -556,3 +556,29 @@ body.creator-mode .creator-only { display: inline-flex !important; }
 /* โลโก้เล็กบนเมนูหลัก */
 .brand-mark.brand-logo { padding: 0; overflow: hidden; background: none !important; }
 .brand-mark.brand-logo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+/* มือถือ: แถบรายการคำศัพท์ — ส่วนหัวกระชับ + เลื่อนทั้งแถบ */
+@media (max-width: 860px) {
+  .quest-sidebar { height: 50% !important; display: block !important; overflow-y: auto !important; -webkit-overflow-scrolling: touch; overscroll-behavior: contain; }
+  .quest-sidebar.collapsed { height: 46px !important; overflow: hidden !important; }
+  .drawer-handle-bar { position: sticky; top: 0; z-index: 3; padding: 4px 12px !important; }
+  .quest-list { overflow: visible !important; height: auto !important; max-height: none !important; padding: 6px 10px 18px !important; }
+
+  .sidebar-top { padding: 6px 10px 4px !important; }
+  .ticket-banner, .radar-info-note { display: none !important; }
+  .collection-meter { margin: 0 0 6px !important; padding: 4px 9px !important; font-size: 10px !important; box-shadow: 0 1px 0 var(--c-ink) !important; }
+  .collection-meter span { font-size: 10px; }
+  .paper-tabs { gap: 6px !important; margin: 0 0 5px !important; }
+  .paper-tab { padding: 4px 6px !important; min-height: 0 !important; font-size: 12px !important; box-shadow: 0 1px 0 var(--c-ink) !important; }
+  .toggle-grid { margin: 0 !important; }
+  .audio-hunt-label { font-size: 11px !important; padding: 2px 0 !important; }
+
+  .quest-card { display: flex !important; flex-wrap: wrap; align-items: center; column-gap: 8px; row-gap: 2px; padding: 7px 10px 7px 16px !important; margin-bottom: 7px !important; }
+  .quest-card::after { display: none !important; }
+  .quest-card::before { width: 6px !important; }
+  .quest-card-header { flex: 0 0 auto; margin: 0 !important; gap: 3px !important; }
+  .quest-card-header .quest-status-sticker { display: none; }
+  .quest-en { flex: 1 1 0; min-width: 0; margin: 0 !important; font-size: 15px !important; line-height: 1.3 !important; }
+  .quest-tag, .level-chip { font-size: 10px !important; padding: 1px 7px !important; }
+  .quest-th-unlocked { flex-basis: 100%; margin: 0 !important; font-size: 11px !important; }
+}
