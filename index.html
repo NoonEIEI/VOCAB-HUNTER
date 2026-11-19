@@ -17,6 +17,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Mali:wght@500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/VOCAB-HUNTER/css/style.css" />
   <link rel="stylesheet" href="/VOCAB-HUNTER/css/fun.css" />
+  <script type="module" crossorigin src="/VOCAB-HUNTER/assets/index-DekZ2luv.js"></script>
 <link rel="manifest" href="/VOCAB-HUNTER/manifest.webmanifest"><script id="vite-plugin-pwa:register-sw" src="/VOCAB-HUNTER/registerSW.js"></script></head>
 <body>
   <!-- Intro: โลโก้เด้งตอนเปิดเกม (เปลี่ยนโลโก้ได้ที่ assets/logo.png) -->
@@ -89,6 +90,18 @@
         <article class="stat-tile stat-green"><span>🎯</span><small>ความแม่นยำเฉลี่ย</small><strong id="statsAccuracy">—</strong></article>
       </div>
       <div class="achievement-panel"><div class="panel-title-row"><div><span class="eyebrow-pill">MILESTONES</span><h3>ความสำเร็จของฉัน</h3></div><b id="statsAchievementCount">0 / 5</b></div><div id="statsAchievementList" class="stats-achievement-list"></div></div>
+      <!-- ข้อมูล 2 ส่วนนี้อ่านจาก IndexedDB (VocabHunterDB) ผ่าน Dexie — ดู src/db.js -->
+      <div class="achievement-panel history-panel">
+        <div class="panel-title-row"><div><span class="eyebrow-pill">PLAY HISTORY</span><h3>📜 ประวัติการเล่น</h3></div><b id="historyCount">0 รอบ</b></div>
+        <small class="history-sub">10 รอบล่าสุด</small>
+        <div id="historyList" class="history-list"></div>
+      </div>
+      <div class="achievement-panel history-panel">
+        <div class="panel-title-row"><div><span class="eyebrow-pill">PRONUNCIATION</span><h3>🗣️ คำที่ออกเสียงยากที่สุด</h3></div><b>TOP 5</b></div>
+        <small class="history-sub">เรียงจากความแม่นยำเฉลี่ยต่ำสุด</small>
+        <ol id="hardWordsList" class="hard-words-list"></ol>
+      </div>
+      <div class="history-actions"><button id="clearHistoryBtn" class="cartoon-btn btn-white history-clear-btn">🗑️ ล้างประวัติการเล่น</button></div>
     </div>
   </section>
 
@@ -421,5 +434,7 @@
   <script src="/VOCAB-HUNTER/js/arcade.js"></script>
   <script src="/VOCAB-HUNTER/js/intro.js"></script>
   <script src="/VOCAB-HUNTER/js/app.js"></script>
+  <!-- IndexedDB (Dexie) — module script โหลดหลัง classic script ด้านบนเสมอ
+       โค้ดเกมเช็ก window.VHDB?.available ก่อนใช้ ถ้าใช้ไม่ได้เกมยังเล่นได้ปกติ -->
 </body>
 </html>

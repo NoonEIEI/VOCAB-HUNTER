@@ -168,6 +168,45 @@ class VocabHunterGame {
     } catch (_) {}
   }
 
+  // ---------- IndexedDB (Dexie) — โหลดจาก src/db.js ซึ่งเป็น module script ----------
+  // module script รันทีหลัง classic script และ IndexedDB อาจใช้ไม่ได้
+  // → คืน null ถ้ายังไม่พร้อม เพื่อให้เกมเล่นต่อได้ปกติเสมอ
+  getDB() {
+    const vh = window.VHDB;
+    return vh && vh.available ? vh.db : null;
+  }
+
+  logRoundToDB(stars, durationSec) {
+    const db = this.getDB();
+    if (!db) return;
+    const lvl = this.currentLevel;
+    db.rounds.add({
+      mapId: lvl.mapId,
+      mapName: lvl.titleTH,
+      round: this.dailyMode ? null : this.getCurrentRoundNumber(),
+      mode: this.dailyMode ? "daily" : "normal",
+      stars,
+      misses: this.roundStats.misses,
+      radarUses: this.roundStats.hints,
+      durationSec,
+      questCount: this.activeRoundQuests.length,
+      date: Date.now()
+    }).catch((err) => console.warn("[VHDB] บันทึกรอบไม่สำเร็จ", err));
+  }
+
+  logSpeakingToDB(quest, result) {
+    const db = this.getDB();
+    if (!db || !quest) return;
+    db.speaking.add({
+      wordId: quest.id,
+      word: quest.targetText,
+      mapId: this.currentLevel.mapId,
+      score: result.score,
+      passed: !!result.passed,
+      date: Date.now()
+    }).catch((err) => console.warn("[VHDB] บันทึกการพูดไม่สำเร็จ", err));
+  }
+
   mergeCustomQuests() {
     this.levels.forEach((lvl) => {
       const savedCustom = this.saveData.customQuests?.[lvl.mapId];
@@ -358,6 +397,11 @@ class VocabHunterGame {
     document.getElementById("menuDailyBtn").addEventListener("click", () => { this.showGameScreen(); this.startDailyChallenge(); });
     document.getElementById("menuEndlessBtn").addEventListener("click", () => { this.showGameScreen(); this.triggerEndlessShuffle(); });
     document.getElementById("menuStatsBtn").addEventListener("click", () => { this.updateStatsScreen(); showScreen("statsScreen"); });
+    document.getElementById("clearHistoryBtn")?.addEventListener("click", () => this.clearPlayHistory());
+    // ถ้าเปิดหน้าสถิติไว้ก่อนที่ db (module script) จะพร้อม → เรนเดอร์ใหม่เมื่อพร้อม
+    window.addEventListener("vhdb-ready", () => {
+      if (document.getElementById("statsScreen")?.classList.contains("active")) this.renderPlayHistory();
+    });
     document.getElementById("menuHelpBtn").addEventListener("click", () => showScreen("helpScreen"));
     document.getElementById("menuSettingsBtn").addEventListener("click", () => showScreen("settingsScreen"));
     document.querySelectorAll("[data-back-menu]").forEach((btn) => btn.addEventListener("click", () => this.showMenuScreen()));
@@ -419,6 +463,96 @@ class VocabHunterGame {
       const unlocked = this.saveData.achievements.includes(id);
       return `<article class="achievement-item ${unlocked ? "unlocked" : "locked"}"><span>${unlocked ? "🏅" : "🔒"}</span><div><b>${title}</b><small>${desc}</small></div><strong>${unlocked ? "ได้รับแล้ว" : "ยังไม่สำเร็จ"}</strong></article>`;
     }).join("");
+    this.renderPlayHistory();
+  }
+
+  // 📜 ประวัติการเล่น + 🗣️ คำที่ออกเสียงยากที่สุด (อ่านจาก IndexedDB)
+  async renderPlayHistory() {
+    const historyEl = document.getElementById("historyList");
+    const hardEl = document.getElementById("hardWordsList");
+    const countEl = document.getElementById("historyCount");
+    const clearBtn = document.getElementById("clearHistoryBtn");
+    if (!historyEl || !hardEl) return;
+
+    const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+    const db = this.getDB();
+    if (!db) {
+      const msg = window.VHDB
+        ? "เบราว์เซอร์นี้ใช้ IndexedDB ไม่ได้ จึงไม่มีประวัติการเล่น (เกมยังเล่นได้ปกติ)"
+        : "กำลังโหลดฐานข้อมูล...";
+      historyEl.innerHTML = `<p class="history-empty">${msg}</p>`;
+      hardEl.innerHTML = "";
+      if (countEl) countEl.textContent = "—";
+      if (clearBtn) clearBtn.disabled = true;
+      return;
+    }
+
+    const token = (this._historyRenderToken = (this._historyRenderToken || 0) + 1);
+    let rounds, speaking;
+    try {
+      [rounds, speaking] = await Promise.all([db.rounds.toArray(), db.speaking.toArray()]);
+    } catch (err) {
+      console.warn("[VHDB] อ่านประวัติไม่สำเร็จ", err);
+      historyEl.innerHTML = `<p class="history-empty">อ่านประวัติไม่สำเร็จ</p>`;
+      return;
+    }
+    if (token !== this._historyRenderToken) return; // มีการเรนเดอร์ใหม่กว่าแล้ว
+
+    if (countEl) countEl.textContent = `${rounds.length} รอบ`;
+    if (clearBtn) clearBtn.disabled = rounds.length === 0 && speaking.length === 0;
+
+    // 10 รอบล่าสุด
+    const recent = rounds.sort((a, b) => b.date - a.date).slice(0, 10);
+    historyEl.innerHTML = recent.length
+      ? recent.map((r) => {
+          const d = new Date(r.date);
+          const when = `${d.toLocaleDateString("th-TH", { day: "numeric", month: "short" })} ${d.toLocaleTimeString("th-TH", { hour: "2-digit", minute: "2-digit" })}`;
+          const roundLabel = r.mode === "daily" ? "Daily Challenge" : `รอบที่ ${r.round}`;
+          const starsHtml = [1, 2, 3].map((n) => `<i class="${n <= r.stars ? "on" : ""}">★</i>`).join("");
+          const secs = r.durationSec || 0;
+          const time = `${Math.floor(secs / 60)}:${String(secs % 60).padStart(2, "0")}`;
+          return `<article class="history-row">
+            <div class="history-main"><b>${esc(r.mapName)}</b><small>${roundLabel} • ${when}</small></div>
+            <div class="history-stars" aria-label="${r.stars} ดาว">${starsHtml}</div>
+            <div class="history-meta"><span title="แตะผิด">❌ ${r.misses}</span><span title="ใช้เรดาร์">📡 ${r.radarUses}</span><span title="เวลาที่ใช้">⏱ ${time}</span></div>
+          </article>`;
+        }).join("")
+      : `<p class="history-empty">ยังไม่มีประวัติ — เล่นให้จบสักรอบแล้วกลับมาดูนะ!</p>`;
+
+    // 5 คำที่ออกเสียงยากที่สุด: เฉลี่ยความแม่นยำต่ำสุด (เสมอกัน → ไม่ผ่านบ่อยกว่า)
+    const byWord = new Map();
+    speaking.forEach((s) => {
+      const w = byWord.get(s.wordId) || { word: s.word, total: 0, tries: 0, fails: 0 };
+      w.total += s.score;
+      w.tries += 1;
+      if (!s.passed) w.fails += 1;
+      byWord.set(s.wordId, w);
+    });
+    const hardest = [...byWord.values()]
+      .map((w) => ({ ...w, avg: Math.round(w.total / w.tries) }))
+      .sort((a, b) => a.avg - b.avg || b.fails - a.fails)
+      .slice(0, 5);
+    hardEl.innerHTML = hardest.length
+      ? hardest.map((w, i) => `<li class="hard-word-row">
+          <span class="hard-word-rank">${i + 1}</span>
+          <div class="hard-word-main"><b>${esc(w.word)}</b><small>พูด ${w.tries} ครั้ง • ไม่ผ่าน ${w.fails} ครั้ง</small></div>
+          <div class="hard-word-score"><div class="hard-word-bar"><span style="width:${w.avg}%"></span></div><strong>${w.avg}%</strong></div>
+        </li>`).join("")
+      : `<p class="history-empty">ยังไม่มีข้อมูลการพูด — ลองกดไมค์ฝึกออกเสียงดูสิ!</p>`;
+  }
+
+  async clearPlayHistory() {
+    const db = this.getDB();
+    if (!db) return;
+    if (!window.confirm("ล้างประวัติการเล่นและประวัติการพูดทั้งหมด?\n(ดาว เลเวล และความคืบหน้าในเกมจะยังอยู่ครบ)")) return;
+    try {
+      await Promise.all([db.rounds.clear(), db.speaking.clear()]);
+      this.showToast("🗑️ ล้างประวัติการเล่นแล้ว");
+    } catch (err) {
+      console.warn("[VHDB] ล้างประวัติไม่สำเร็จ", err);
+      this.showToast("ล้างประวัติไม่สำเร็จ ลองใหม่อีกครั้ง");
+    }
+    this.renderPlayHistory();
   }
 
   renderLevelCards() {
@@ -889,6 +1023,7 @@ class VocabHunterGame {
 
     this.saveData.accuracyTotal += result.score;
     this.saveData.accuracyAttempts += 1;
+    this.logSpeakingToDB(this.activeQuest, result);
     if (result.passed) {
       this.sfx.success();
       const basePoints = this.activeQuest.type === "sentence" ? 150 : 100;
@@ -976,10 +1111,13 @@ class VocabHunterGame {
       this.sfx.fanfare();
       FX.rain(stars === 3 ? 60 : 30);
     }, 200);
+    return { stars, secs };
   }
 
   handleRoundCompleted() {
-    this.renderVictoryExtras();
+    const { stars, secs } = this.renderVictoryExtras();
+    // บันทึกก่อน mapRounds จะถูกเลื่อนไปรอบถัดไป เพื่อให้ได้เลขรอบที่เพิ่งผ่าน
+    this.logRoundToDB(stars, secs);
     if (this.dailyMode) {
       this.stopDailyTimer();
       this.dailyMode = false;

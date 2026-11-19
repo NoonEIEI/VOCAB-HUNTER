@@ -582,3 +582,51 @@ body.creator-mode .creator-only { display: inline-flex !important; }
   .quest-tag, .level-chip { font-size: 10px !important; padding: 1px 7px !important; }
   .quest-th-unlocked { flex-basis: 100%; margin: 0 !important; font-size: 11px !important; }
 }
+/* ---------- stats: play history & hardest words (IndexedDB) ---------- */
+.history-sub { display: block; margin: -6px 0 10px; color: var(--c-ink-soft); font-size: 11px; font-weight: 700; }
+.history-list, .hard-words-list { display: flex; flex-direction: column; gap: 7px; margin: 0; padding: 0; list-style: none; }
+.history-empty {
+  margin: 0; padding: 14px; text-align: center; border-radius: 13px;
+  background: var(--c-grape-soft); border: 2px dashed var(--c-grape); color: var(--c-ink-soft); font-size: 12px; font-weight: 700;
+}
+.history-row, .hard-word-row {
+  display: flex; align-items: center; gap: 10px; padding: 9px 12px;
+  border: 2px solid var(--c-ink); border-radius: 13px; background: #fff; box-shadow: 0 2px 0 var(--c-ink);
+}
+.history-row:nth-child(4n+1) { background: var(--c-sky-soft); }
+.history-row:nth-child(4n+2) { background: var(--c-pink-soft); }
+.history-row:nth-child(4n+3) { background: var(--c-mint-soft); }
+.history-row:nth-child(4n+4) { background: var(--c-lemon-soft); }
+.history-main, .hard-word-main { display: flex; flex-direction: column; gap: 1px; flex: 1; min-width: 0; }
+.history-main b, .hard-word-main b {
+  color: var(--c-ink); font: 700 14px "Fredoka", "Mali", sans-serif;
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.history-main small, .hard-word-main small { color: var(--c-ink-soft); font-size: 10px; font-weight: 700; }
+.history-stars { display: flex; gap: 1px; }
+.history-stars i { font-style: normal; font-size: 18px; line-height: 1; color: #e6dff0; -webkit-text-stroke: 1px var(--c-ink); }
+.history-stars i.on { color: var(--c-lemon); }
+.history-meta { display: flex; gap: 5px; }
+.history-meta span {
+  padding: 2px 8px; border-radius: 99px; background: #fff; border: 1.5px solid var(--c-ink);
+  color: var(--c-ink); font: 700 11px "Fredoka", sans-serif; white-space: nowrap;
+}
+.hard-word-rank {
+  flex: 0 0 auto; display: grid; place-items: center; width: 28px; height: 28px; border-radius: 50%;
+  border: 2px solid var(--c-ink); background: var(--c-peach-soft); color: var(--c-ink); font: 800 14px "Fredoka", sans-serif;
+}
+.hard-word-row:first-child .hard-word-rank { background: var(--c-pink); color: #fff; }
+.hard-word-score { display: flex; align-items: center; gap: 7px; flex: 0 0 auto; }
+.hard-word-bar { width: 90px; height: 10px; border-radius: 99px; border: 1.5px solid var(--c-ink); background: #fff; overflow: hidden; }
+.hard-word-bar span { display: block; height: 100%; background: linear-gradient(90deg, var(--c-pink), var(--c-peach)); }
+.hard-word-score strong { min-width: 38px; text-align: right; color: var(--c-ink); font: 800 14px "Fredoka", sans-serif; }
+.history-actions { display: flex; justify-content: center; margin-top: 16px; }
+.history-clear-btn { padding: 9px 18px; border-radius: 99px; font-size: 13px; cursor: pointer; }
+.history-clear-btn:disabled { opacity: .45; cursor: not-allowed; }
+
+@media (max-width: 600px) {
+  .history-row { flex-wrap: wrap; row-gap: 5px; }
+  .history-main { flex-basis: calc(100% - 70px); }
+  .history-meta { flex-basis: 100%; }
+  .hard-word-bar { width: 54px; }
+}
