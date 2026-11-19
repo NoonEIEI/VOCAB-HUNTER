@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Vocab Hunter — สมุดภาพฝึกพูดภาษาอังกฤษไม่รู้จบ</title>
+  <!-- ไฟล์ใน public/ อ้างด้วย "/" นำหน้า — Vite จะเติม /VOCAB-HUNTER/ ให้เองตอน build -->
+  <link rel="icon" href="/VOCAB-HUNTER/favicon.ico" sizes="any" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/VOCAB-HUNTER/apple-touch-icon.png" />
+  <!-- manifest.webmanifest สร้างอัตโนมัติโดย vite-plugin-pwa (ตั้งค่าใน vite.config.js) -->
+  <meta name="theme-color" content="#b79bff" />
+  <meta name="apple-mobile-web-app-title" content="Vocab Hunter" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Mali:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/VOCAB-HUNTER/css/style.css" />
+  <link rel="stylesheet" href="/VOCAB-HUNTER/css/fun.css" />
+<link rel="manifest" href="/VOCAB-HUNTER/manifest.webmanifest"><script id="vite-plugin-pwa:register-sw" src="/VOCAB-HUNTER/registerSW.js"></script></head>
+<body>
+  <!-- Intro: โลโก้เด้งตอนเปิดเกม (เปลี่ยนโลโก้ได้ที่ assets/logo.png) -->
+  <div id="introScreen" class="intro-screen" role="dialog" aria-label="Vocab Hunter">
+    <div class="intro-bubbles" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+    <div class="intro-stage">
+      <div class="intro-logo-wrap"><div class="intro-shadow"></div><img class="intro-logo" src="/VOCAB-HUNTER/assets/logo.png" alt="Vocab Hunter" /></div>
+      <h1 class="intro-title" aria-label="Vocab Hunter">
+        <span class="intro-word w1"><b>V</b><b>O</b><b>C</b><b>A</b><b>B</b></span>
+        <span class="intro-word w2"><b>H</b><b>U</b><b>N</b><b>T</b><b>E</b><b>R</b></span>
+      </h1>
+      <p class="intro-tag">🔍 ค้นหา &nbsp;•&nbsp; 🎧 ฟัง &nbsp;•&nbsp; 🗣️ พูด</p>
+      <button id="introStartBtn" class="intro-start">👆 แตะเพื่อเริ่มเกม</button>
+    </div>
+  </div>
+
+
+  <!-- Game UI Screens: menu, level select, stats, help, settings -->
+  <section id="mainMenuScreen" class="ui-screen active" aria-label="เมนูหลัก">
+    <div class="menu-backdrop-art" aria-hidden="true">
+      <span class="float-shape shape-one">✦</span><span class="float-shape shape-two">★</span><span class="float-shape shape-three">✧</span>
+    </div>
+    <div class="menu-shell">
+      <div class="menu-brand-row"><span class="brand-mark brand-logo"><img src="/VOCAB-HUNTER/assets/logo.png" alt="" /></span><span class="brand-kicker">WORD ADVENTURE GAME</span><span class="brand-version">ENDLESS EDITION</span></div>
+      <div class="menu-hero">
+        <div class="menu-copy">
+          <div class="eyebrow-pill">🧭 EXPLORE • FIND • SPEAK</div>
+          <h1>VOCAB<span>HUNTER</span></h1>
+          <p>ออกผจญภัยในโลกแห่งคำศัพท์<br>ค้นหาสิ่งของ ฝึกฟัง และฝึกพูดภาษาอังกฤษ</p>
+          <div class="menu-cta-row">
+            <button id="menuContinueBtn" class="menu-primary-btn">▶ เล่นต่อ <span>เริ่มออกผจญภัย</span></button>
+            <button id="menuLevelsBtn" class="menu-secondary-btn">🗺️ เลือกด่าน</button>
+            <button id="menuArcadeBtn" class="menu-arcade-btn">🎮 ลานฝึกศัพท์ <span id="menuArcadeSub">มินิเกม 5 แบบ • 200 คำ</span></button>
+          </div>
+          <div class="menu-quick-links">
+            <button id="menuDailyBtn">📅 Daily Challenge</button><button id="menuEndlessBtn">🎲 Endless Mode</button>
+          </div>
+        </div>
+        <div class="menu-art-card">
+          <div class="art-card-glow"></div>
+          <img src="/VOCAB-HUNTER/assets/amusement-park.webp" alt="ตัวอย่างแผนที่สวนสนุก" />
+          <div class="art-card-sticker sticker-top">FIND IT!</div><div class="art-card-sticker sticker-bottom">✨ LET'S PLAY</div>
+        </div>
+      </div>
+      <div class="menu-bottom-grid">
+        <div class="player-summary-card"><div class="summary-avatar">🧑‍🚀</div><div><small>YOUR ADVENTURER</small><strong id="menuRankName">นักเดินทางฝึกหัด</strong><span id="menuLevelValue">LEVEL 1</span></div><div class="summary-stars">⭐ <b id="menuStarValue">0</b></div></div>
+        <button id="menuStatsBtn" class="menu-feature-card"><span>🏆</span><b>สถิติของฉัน</b><small>ความสำเร็จและคะแนน</small></button>
+        <button id="menuHelpBtn" class="menu-feature-card"><span>📖</span><b>วิธีเล่น</b><small>เรียนรู้วิธีออกล่า</small></button>
+        <button id="menuSettingsBtn" class="menu-feature-card"><span>⚙️</span><b>ตั้งค่า</b><small>เสียงและการแสดงผล</small></button>
+      </div>
+      <div class="menu-footer"><span>VOCAB HUNTER</span><span>LEARN ENGLISH THROUGH PLAY</span></div>
+    </div>
+  </section>
+
+  <section id="levelSelectScreen" class="ui-screen" aria-label="เลือกด่าน">
+    <div class="subscreen-shell">
+      <div class="subscreen-heading"><button class="back-menu-btn" data-back-menu>← กลับเมนู</button><div><span class="eyebrow-pill">CHOOSE YOUR WORLD</span><h2>เลือกพื้นที่ผจญภัย</h2><p>เลือกฉากที่อยากสำรวจ แล้วเริ่มตามล่าคำศัพท์</p></div></div>
+      <div id="levelCardsGrid" class="level-cards-grid"></div>
+      <div class="level-screen-tip">💡 แต่ละด่านจะสุ่มภารกิจใหม่ในทุก ๆ รอบ เพื่อให้เล่นซ้ำได้ไม่จำเจ</div>
+    </div>
+  </section>
+
+  <section id="statsScreen" class="ui-screen" aria-label="สถิติผู้เล่น">
+    <div class="subscreen-shell compact-shell">
+      <div class="subscreen-heading"><button class="back-menu-btn" data-back-menu>← กลับเมนู</button><div><span class="eyebrow-pill">YOUR JOURNEY</span><h2>สถิติการผจญภัย</h2><p>ติดตามพัฒนาการการเรียนรู้ของคุณ</p></div></div>
+      <div class="stats-grid">
+        <article class="stat-tile stat-gold"><span>⭐</span><small>ดาวสะสม</small><strong id="statsStars">0</strong></article>
+        <article class="stat-tile stat-blue"><span>🗣️</span><small>คำที่พูดผ่าน</small><strong id="statsMastered">0</strong></article>
+        <article class="stat-tile stat-pink"><span>🔥</span><small>เล่นต่อเนื่อง</small><strong id="statsStreak">1 วัน</strong></article>
+        <article class="stat-tile stat-green"><span>🎯</span><small>ความแม่นยำเฉลี่ย</small><strong id="statsAccuracy">—</strong></article>
+      </div>
+      <div class="achievement-panel"><div class="panel-title-row"><div><span class="eyebrow-pill">MILESTONES</span><h3>ความสำเร็จของฉัน</h3></div><b id="statsAchievementCount">0 / 5</b></div><div id="statsAchievementList" class="stats-achievement-list"></div></div>
+    </div>
+  </section>
+
+  <section id="helpScreen" class="ui-screen" aria-label="วิธีเล่น">
+    <div class="subscreen-shell compact-shell">
+      <div class="subscreen-heading"><button class="back-menu-btn" data-back-menu>← กลับเมนู</button><div><span class="eyebrow-pill">HOW TO PLAY</span><h2>วิธีออกล่าคำศัพท์</h2><p>เล่นง่าย ๆ ใน 4 ขั้นตอน</p></div></div>
+      <div class="help-steps">
+        <article><span>01</span><div class="help-icon">📋</div><h3>อ่านภารกิจ</h3><p>ดูคำศัพท์หรือประโยคภาษาอังกฤษจากรายการภารกิจด้านข้าง</p></article>
+        <article><span>02</span><div class="help-icon">🔎</div><h3>ค้นหาในแผนที่</h3><p>มองหาสิ่งของที่ตรงกับคำศัพท์ แล้วคลิกหรือแตะบริเวณนั้น</p></article>
+        <article><span>03</span><div class="help-icon">🎤</div><h3>ฝึกออกเสียง</h3><p>ฟังเสียงตัวอย่าง แล้วพูดตาม หรือพิมพ์คำตอบเพื่อทดสอบ</p></article>
+        <article><span>04</span><div class="help-icon">⭐</div><h3>สะสมดาว</h3><p>ตอบถูกเพื่อรับดาว ปลดล็อกความสำเร็จ และเล่นรอบถัดไป</p></article>
+      </div>
+      <div class="help-tip help-tip-arcade">🎮 อยากทบทวนศัพท์เร็ว ๆ? เข้า <b>ลานฝึกศัพท์</b> จากเมนูหลัก มีทั้งฟังแล้วตอบ ไทย→อังกฤษ เรียงคำ และเติมคำ — คำที่ตอบผิดจะถูกเก็บไว้ให้ฝึกซ้ำ</div>
+      <div class="help-tip">📱 บนมือถือ: ใช้สองนิ้วซูมแผนที่ และแตะที่แถบภารกิจด้านล่างเพื่อเปิดหรือย่อรายการ</div>
+    </div>
+  </section>
+
+  <section id="settingsScreen" class="ui-screen" aria-label="ตั้งค่าเกม">
+    <div class="subscreen-shell compact-shell">
+      <div class="subscreen-heading"><button class="back-menu-btn" data-back-menu>← กลับเมนู</button><div><span class="eyebrow-pill">GAME PREFERENCES</span><h2>ตั้งค่าเกม</h2><p>ปรับประสบการณ์การเล่นให้เหมาะกับคุณ</p></div></div>
+      <div class="settings-panel">
+        <label class="setting-row"><span><b>🔊 เสียงเอฟเฟกต์</b><small>เสียงเมื่อค้นพบเป้าหมายและตอบถูก</small></span><input id="settingSoundToggle" type="checkbox" checked /></label>
+        <label class="setting-row"><span><b>✨ ลดการเคลื่อนไหว</b><small>ลดเอฟเฟกต์และแอนิเมชันบนหน้าจอ</small></span><input id="settingMotionToggle" type="checkbox" /></label>
+        <label class="setting-row"><span><b>✂️ โหมดผู้สร้างด่าน</b><small>แสดงปุ่ม "สร้างด่าน" สำหรับวาด hitbox บนแผนที่ใหม่ (สำหรับผู้พัฒนา)</small></span><input id="settingCreatorToggle" type="checkbox" /></label>
+        <div class="setting-row"><span><b>🌐 ภาษา</b><small>ภาษาของเมนูและคำอธิบาย</small></span><strong class="setting-value">ภาษาไทย</strong></div>
+      </div>
+      <p class="settings-note">การตั้งค่าจะถูกบันทึกไว้ในเบราว์เซอร์เครื่องนี้</p>
+    </div>
+  </section>
+
+  <!-- Word Arcade: มินิเกมทบทวนคำศัพท์ -->
+  <section id="arcadeScreen" class="ui-screen" aria-label="ลานฝึกศัพท์">
+    <div class="arcade-shell">
+      <div id="arcadeLobby">
+        <div class="subscreen-heading">
+          <button id="arcadeBackBtn" class="back-menu-btn">← กลับเมนู</button>
+          <div><span class="eyebrow-pill">WORD ARCADE</span><h2>ลานฝึกศัพท์ 🎮</h2><p>ทบทวนคำศัพท์ <b id="arcadeBankCount">160</b> คำแบบเร็ว ๆ — 10 ข้อ หัวใจ 3 ดวง ตอบถูกติดกันได้คอมโบ!</p></div>
+        </div>
+        <h3 class="arcade-section-title">1 · เลือกชุดคำ</h3>
+        <div id="arcadeDeckChips" class="deck-chips"></div>
+        <h3 class="arcade-section-title">2 · เลือกโหมด</h3>
+        <div id="arcadeModeGrid" class="mode-grid"></div>
+        <p class="arcade-footnote">⌨️ บนคอมพิวเตอร์ กดเลข 1–4 เพื่อเลือกคำตอบ และ Enter เพื่อไปข้อถัดไป</p>
+      </div>
+
+      <div id="arcadePlay" class="hidden">
+        <div class="arcade-topbar">
+          <button id="arcadeQuitBtn" class="arcade-quit" title="ออกจากเกม">✕</button>
+          <div class="arcade-progress"><div id="arcadeProgressFill"></div><span id="arcadeProgressText">1 / 10</span></div>
+          <div id="arcadeHearts" class="arcade-hearts"></div>
+        </div>
+        <div class="arcade-scoreline"><span>⭐ <b id="arcadeScore">0</b></span><span id="arcadeCombo" class="arcade-combo hidden">🔥 x2</span></div>
+        <div id="arcadeCard" class="arcade-card"></div>
+        <div id="arcadeFeedback" class="arcade-feedback hidden"></div>
+      </div>
+
+      <div id="arcadeResult" class="hidden"></div>
+    </div>
+  </section>
+
+  <!-- Top Pastel Capsule HUD -->
+  <header class="hud-header">
+    <div class="hud-left">
+      <button id="mainMenuBtn" class="game-menu-btn" title="เมนูหลัก">☰ <span>เมนู</span></button>
+      <div class="capsule-pill rank-capsule" title="เลเวลและยศนักสำรวจของคุณ">
+        <span class="lv-circle" id="playerLevelBadge">LV.1</span>
+        <span class="rank-name" id="playerRankText">นักเดินทางฝึกหัด</span>
+      </div>
+
+      <div class="capsule-pill level-pill">
+        <select id="levelSelect" class="pill-select" title="เลือกด่าน">
+          <!-- Populated by JS -->
+        </select>
+        <button id="endlessShuffleBtn" class="mini-play-btn" title="สุ่มด่านและโจทย์ใหม่ไม่รู้จบ">🎲</button>
+      </div>
+
+      <div id="comboPill" class="capsule-pill combo-pill hidden" title="หาเจอติดกันโดยไม่แตะผิด ได้ดาวเพิ่ม">
+        <span>🔥</span><strong id="comboText">x2</strong>
+      </div>
+
+      <div class="capsule-pill progress-capsule">
+        <span class="capsule-icon">🎯</span>
+        <div class="capsule-meter">
+          <div id="progressBarFill" class="capsule-meter-fill" style="width: 0%;"></div>
+          <span id="progressText" class="capsule-meter-label">0 / 10</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="hud-right">
+      <div class="capsule-pill streak-capsule" title="สถิติการเล่นต่อเนื่องรายวัน">
+        <span>🔥</span>
+        <strong id="streakText">1 วัน</strong>
+      </div>
+
+      <div class="capsule-pill score-capsule" title="ดาวสะสมทั้งหมด">
+        <span class="star-badge">⭐</span>
+        <strong id="scoreText">0</strong>
+      </div>
+
+      <div class="capsule-pill radar-token-pill" title="โทเคนสำหรับใช้เรดาร์">
+        <span>🪙</span><strong id="radarTokensText">3</strong>
+      </div>
+      <button id="hintBtn" class="cartoon-btn btn-yellow radar-button" title="ใช้เรดาร์ 2 โทเคนต่อครั้ง">
+        <span>📡</span>
+        <span class="btn-label">เรดาร์</span>
+        <small>2 🪙</small>
+        <b id="radarBadge" class="radar-badge">3</b>
+      </button>
+
+      <button id="hudArcadeBtn" class="cartoon-btn btn-arcade" title="ลานฝึกศัพท์ (มินิเกม)">
+        <span>🎮</span>
+        <span class="btn-label">มินิเกม</span>
+      </button>
+
+      <button id="devModeBtn" class="cartoon-btn btn-lavender creator-only" title="สร้างจุดคำศัพท์เพิ่มเอง">
+        <span>✂️</span>
+        <span class="btn-label">สร้างด่าน</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Main Workspace -->
+  <main class="game-layout">
+    <!-- Scrapbook Quest Notebook Sidebar -->
+    <aside id="questSidebar" class="quest-sidebar">
+      <div id="mobileDrawerToggle" class="drawer-handle-bar">
+        <div class="drawer-pill-grip"></div>
+        <span id="drawerStatusText">📋 แตะเพื่อเปิด/ย่อรายการคำศัพท์</span>
+      </div>
+
+      <div class="sidebar-top">
+        <div class="ticket-banner">
+          <div class="ticket-emblem">👑</div>
+          <div class="ticket-info">
+            <div class="ticket-title" id="ticketLevelTitle">สมุดภารกิจคำศัพท์</div>
+            <div class="ticket-round-sub" id="roundBadgeText">รอบที่ 1 • ตัวคูณ x1.0</div>
+          </div>
+          <div class="ticket-stub">✂️</div>
+        </div>
+
+        <div id="collectionMeter" class="collection-meter" title="คำที่เคยหาเจอในฉากนี้ (เล่นหลายรอบเพื่อเก็บให้ครบ)">
+          <span>📚 เก็บคำในฉากนี้แล้ว</span>
+          <div class="collection-track"><div class="collection-fill"></div></div>
+          <b>0/40</b>
+        </div>
+
+        <div class="paper-tabs">
+          <button class="paper-tab active" data-filter="all">ทั้งหมด</button>
+          <button class="paper-tab" data-filter="word">คำศัพท์</button>
+          <button class="paper-tab" data-filter="sentence">ประโยค</button>
+        </div>
+
+        <div class="toggle-grid">
+          <label class="paper-checkbox audio-hunt-label" title="ซ่อนคำภาษาอังกฤษ ให้กดฟังเสียงแล้วหาในภาพ รับโบนัส +50%!">
+            <input type="checkbox" id="audioHuntToggle" />
+            <span>🎧 โหมดฟังเสียงปริศนา (+50% ดาว)</span>
+          </label>
+        </div>
+        <div class="radar-info-note">📡 เรดาร์ใช้ 2 โทเคนต่อครั้ง · ทำภารกิจสำเร็จ 3 ข้อ รับ 1 โทเคน</div>
+        <section class="endless-tools-card">
+          <div class="endless-tools-heading">✨ สนามฝึกไม่รู้จบ</div>
+          <div class="endless-tools-grid">
+            <button id="dailyChallengeBtn" class="endless-tool-btn">📅 Daily Challenge</button>
+            <button id="reviewMistakesBtn" class="endless-tool-btn">🧠 ทบทวนคำที่ผิด <b id="reviewCount">0</b></button>
+            <button id="sceneArcadeBtn" class="endless-tool-btn arcade-wide">🎮 ฝึกศัพท์ฉากนี้ด้วยมินิเกม</button>
+          </div>
+          <div class="difficulty-line"><span>ระดับความท้าทาย</span><strong id="difficultyLabel">เริ่มต้น</strong></div>
+          <div class="collection-line"><span>🏅 คอลเลกชันความสำเร็จ</span><strong id="achievementCount">0/5</strong></div>
+          <div id="achievementBadges" class="achievement-badges"><span>🌱 มือใหม่</span></div>
+          <div id="dailyStatus" class="daily-status">ภารกิจวันนี้: ค้นหา 8 สิ่ง รับโบนัส 250 ดาว</div>
+        </section>
+      </div>
+
+      <!-- Perforated Quest Cards List (NO Thai translation shown until found!) -->
+      <ul id="questList" class="quest-list">
+        <!-- Quest cards injected here -->
+      </ul>
+    </aside>
+
+    <!-- Interactive 2D Storybook Map Stage -->
+    <section class="map-stage" id="mapStage">
+      <div id="mapCanvasWrapper" class="map-wrapper">
+        <img id="mapImage" src="/VOCAB-HUNTER/assets/amusement-park.webp" alt="Game Map" draggable="false" />
+        <div id="mapOverlay" class="map-overlay"></div>
+      </div>
+
+      <div class="zoom-dock">
+        <button id="zoomOutBtn" class="zoom-round-btn" title="ซูมออก">−</button>
+        <div class="zoom-track">
+          <div id="zoomThumb" class="zoom-thumb">55%</div>
+        </div>
+        <button id="zoomInBtn" class="zoom-round-btn" title="ซูมเข้า">+</button>
+        <button id="resetViewBtn" class="zoom-round-btn btn-reset-view" title="จัดกึ่งกลางภาพ">⌖</button>
+      </div>
+
+      <div id="toastBanner" class="toast-banner hidden"></div>
+
+      <div id="devToolbar" class="dev-toolbar hidden">
+        <div class="dev-info">
+          <strong>✂️ โหมดตัดแปะด่านใหม่:</strong> ลากนิ้วหรือเมาส์ครอบจุดบนแผนที่เพื่อเพิ่มคำศัพท์
+        </div>
+        <div class="dev-actions">
+          <label class="cartoon-btn btn-sm btn-sky">
+            🖼️ ใส่รูปแผนที่ใหม่
+            <input type="file" id="customMapInput" accept="image/*" hidden />
+          </label>
+          <button id="exportJsonBtn" class="cartoon-btn btn-sm btn-mint">📋 คัดลอก JSON</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Speaking & Meaning Reveal Modal (Reveals Thai translation ONLY after finding on map!) -->
+  <div id="speakModal" class="modal-backdrop hidden">
+    <div class="scrapbook-modal">
+      <div class="modal-ear-tab">
+        <span>🎉</span>
+        <span id="modalQuestType">เฉลย & ฝึกพูด</span>
+      </div>
+
+      <div class="modal-lavender-header">
+        <h3>หาเจอแล้ว! เรียนรู้ความหมายและลองออกเสียง</h3>
+      </div>
+
+      <div class="modal-polka-body">
+        <div class="target-card-paper">
+          <div class="target-en" id="modalTargetText">I'll have one ice cream.</div>
+          <div class="sky-role-pill" id="modalPhonetic">ไอล์ แฮฟ วัน ไอซ์ ครีม</div>
+          <div class="white-income-pill" id="modalMeaningTH">คำแปล: ฉันขอไอศกรีม 1 อันครับ/ค่ะ</div>
+        </div>
+
+        <button id="listenBtn" class="glossy-pill-btn btn-white-pill">
+          <span class="pill-text">ฟังเสียงเจ้าของภาษา</span>
+          <span class="pill-right-icon">🔊</span>
+        </button>
+
+        <button id="micBtn" class="glossy-pill-btn btn-gradient-pill">
+          <span class="pill-text" id="micBtnLabel">กดไมค์แล้วพูดใส่เครื่อง</span>
+          <span class="pill-right-icon">🎤</span>
+        </button>
+
+        <div id="speechStatus" class="speech-status">
+          กดปุ่มสีรุ้งด้านบน แล้วพูดภาษาอังกฤษให้ชัดเจน
+        </div>
+
+        <div id="transcriptDisplay" class="transcript-paper hidden">
+          <div class="transcript-label">ผลการตรวจคำศัพท์ทีละคำ:</div>
+          <div id="wordComparison" class="word-comparison"></div>
+          <div id="accuracyBadge" class="accuracy-badge"></div>
+        </div>
+
+        <details class="fallback-box">
+          <summary>ไม่มีไมโครโฟน / ทดสอบด้วยการพิมพ์</summary>
+          <div class="fallback-row">
+            <input type="text" id="fallbackInput" class="paper-input" placeholder="พิมพ์ข้อความตามโจทย์..." />
+            <button id="fallbackCheckBtn" class="cartoon-btn btn-sm btn-mint">ตรวจ</button>
+          </div>
+        </details>
+
+        <div class="modal-bottom-row">
+          <button id="closeModalBtn" class="cartoon-btn btn-white">ปิดหน้าต่าง</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Dev Hitbox Creation Modal -->
+  <div id="devQuestModal" class="modal-backdrop hidden">
+    <div class="scrapbook-modal">
+      <div class="modal-lavender-header">
+        <h3>✂️ เพิ่มจุดคำศัพท์ / ประโยคใหม่</h3>
+      </div>
+      <div class="modal-polka-body">
+        <p id="devRectPreview" class="dev-rect-text">x: 0, y: 0, width: 100, height: 100</p>
+        <div class="form-group">
+          <label>ประเภทโจทย์</label>
+          <select id="devTypeInput" class="paper-input">
+            <option value="word">คำศัพท์ (1 คำ)</option>
+            <option value="sentence">ประโยคสถานการณ์</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>คำศัพท์ / ประโยคภาษาอังกฤษ</label>
+          <input type="text" id="devEnInput" class="paper-input" placeholder="เช่น Hot air balloon" />
+        </div>
+        <div class="form-group">
+          <label>คำอ่านภาษาไทย</label>
+          <input type="text" id="devPhoneticInput" class="paper-input" placeholder="เช่น ฮอท แอร์ บัล-ลูน" />
+        </div>
+        <div class="form-group">
+          <label>คำแปลภาษาไทย (จะเฉลยเมื่อหาเจอ)</label>
+          <input type="text" id="devThInput" class="paper-input" placeholder="เช่น บอลลูนลมร้อน" />
+        </div>
+        <div class="modal-bottom-row">
+          <button id="cancelDevQuestBtn" class="cartoon-btn btn-white">ยกเลิก</button>
+          <button id="saveDevQuestBtn" class="cartoon-btn btn-mint">บันทึกจุดนี้</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Endless Round Complete Card -->
+  <div id="victoryModal" class="modal-backdrop hidden">
+    <div class="mission-complete-card">
+      <div class="mission-amber-tab">เคลียร์รอบสำเร็จ!</div>
+      <div class="mission-body">
+        <div id="victoryStars" class="victory-stars"></div>
+        <h2 id="victoryTitle">ผ่านรอบที่ 1 แล้ว!</h2>
+        <p id="victorySummary">ปลดล็อกชุดคำศัพท์รอบถัดไปพร้อมตัวคูณคะแนนที่สูงขึ้น!</p>
+        <div class="bonus-sticker-pill" id="victoryBonusText">สะสมคำศัพท์ที่พูดผ่านแล้ว 10 คำ</div>
+        <div id="victoryStatsRow" class="victory-stats-row"></div>
+        <div id="victoryTip" class="victory-tip"></div>
+        <div class="victory-words-label">คำที่คุณเก็บได้ในรอบนี้</div>
+        <div id="victoryWords" class="victory-words"></div>
+        <div class="modal-bottom-row center">
+          <button id="victoryArcadeBtn" class="cartoon-btn btn-arcade">🎮 ทบทวนคำรอบนี้</button>
+          <button id="nextRoundSameMapBtn" class="cartoon-btn btn-mint">🔥 เล่นรอบถัดไป (ชุดใหม่)</button>
+          <button id="endlessNextMapBtn" class="cartoon-btn btn-yellow">🎲 สุ่มฉากใหม่</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="/VOCAB-HUNTER/data/levels.js"></script>
+  <script src="/VOCAB-HUNTER/data/vocab-bank.js"></script>
+  <script src="/VOCAB-HUNTER/js/fx.js"></script>
+  <script src="/VOCAB-HUNTER/js/speech.js"></script>
+  <script src="/VOCAB-HUNTER/js/mapEngine.js"></script>
+  <script src="/VOCAB-HUNTER/js/arcade.js"></script>
+  <script src="/VOCAB-HUNTER/js/intro.js"></script>
+  <script src="/VOCAB-HUNTER/js/app.js"></script>
+</body>
+</html>
