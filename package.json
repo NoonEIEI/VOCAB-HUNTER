@@ -3,7 +3,7 @@
   "private": true,
   "version": "1.0.0",
   "type": "module",
-  "homepage": "https://YOUR-GITHUB-USERNAME.github.io/VOCAB-HUNTER/",
+"homepage": "https://NoonEIEI.github.io/VOCAB-HUNTER/",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
