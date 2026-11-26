@@ -1,0 +1,24 @@
+rules_version = '2';
+
+// Vocab Hunter — Firestore Security Rules
+// วางใน Firebase Console → Firestore Database → Rules แล้วกด Publish
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // ผู้เล่นอ่าน/เขียนได้เฉพาะเอกสารความคืบหน้าของตัวเอง: userProgress/{uid}
+    match /userProgress/{userId} {
+      allow read, delete: if request.auth != null && request.auth.uid == userId;
+
+      allow create, update: if request.auth != null
+        && request.auth.uid == userId
+        && request.resource.data.keys().hasOnly(['saveData', 'totalStars', 'displayName', 'updatedAt'])
+        && request.resource.data.saveData is map
+        && request.resource.data.totalStars is number;
+    }
+
+    // เอกสารอื่นทั้งหมด: ปิด
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

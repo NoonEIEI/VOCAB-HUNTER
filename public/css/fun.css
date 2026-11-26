@@ -630,3 +630,91 @@ body.creator-mode .creator-only { display: inline-flex !important; }
   .history-meta { flex-basis: 100%; }
   .hard-word-bar { width: 54px; }
 }
+
+/* =====================================================================
+   LOGIN — หน้าเข้าสู่ระบบ (Week 12) ต่อจาก intro ใช้พื้นหลัง/ฟองเดียวกัน
+   ===================================================================== */
+.login-screen {
+  position: fixed; inset: 0; z-index: 4800; display: grid; place-items: center; overflow: auto; padding: 16px;
+  background:
+    radial-gradient(circle at 20% 15%, rgba(255,255,255,.55) 0 120px, transparent 121px),
+    radial-gradient(circle at 85% 85%, rgba(255,210,63,.35) 0 160px, transparent 161px),
+    linear-gradient(160deg, #ffd1e8 0%, #e3d2ff 55%, #c6b3ff 100%);
+  font-family: "Fredoka", "Mali", sans-serif;
+  animation: fxSlide .35s ease-out; transition: opacity .35s ease, transform .4s ease;
+}
+.login-screen.leaving { opacity: 0; transform: scale(1.06); pointer-events: none; }
+.login-card {
+  position: relative; z-index: 1; width: min(380px, 100%); padding: 26px 22px 20px;
+  display: flex; flex-direction: column; align-items: center; text-align: center; gap: 10px;
+  background: #fff; border: 3px solid var(--c-ink); border-radius: 26px; box-shadow: 0 8px 0 var(--c-ink);
+}
+.login-logo {
+  width: 104px; height: 104px; object-fit: cover; margin-top: -70px;
+  border-radius: 23%; border: 4px solid var(--c-ink); box-shadow: 0 6px 0 var(--c-ink);
+  animation: introLogoFloat 2.6s ease-in-out infinite;
+}
+.login-title { margin: 6px 0 0; font: 700 34px "Fredoka", sans-serif; color: var(--c-grape); -webkit-text-stroke: 1.5px var(--c-ink); paint-order: stroke fill; text-shadow: 0 3px 0 var(--c-ink); }
+.login-title span { color: var(--c-pink); }
+.login-sub { margin: 0 0 6px; color: var(--c-ink-soft); font: 600 13px/1.5 "Mali", sans-serif; }
+.login-google-btn {
+  width: 100%; display: flex; align-items: center; justify-content: center; gap: 10px;
+  padding: 13px 18px; border: 3px solid var(--c-ink); border-radius: 99px; cursor: pointer;
+  background: #fff; box-shadow: 0 5px 0 var(--c-ink); color: var(--c-ink);
+  font: 800 16px "Mali", sans-serif; transition: transform .1s, box-shadow .1s;
+}
+.login-google-btn:hover { background: var(--c-lemon-soft); }
+.login-google-btn:active { transform: translateY(4px); box-shadow: 0 1px 0 var(--c-ink); }
+.login-google-btn:disabled { opacity: .6; cursor: progress; }
+.login-error {
+  margin: 0; width: 100%; padding: 8px 10px; border-radius: 12px; border: 2px solid #e05a7a;
+  background: var(--c-pink-soft); color: #a3264a; font: 700 12px "Mali", sans-serif;
+}
+.login-guest-btn {
+  margin-top: 4px; padding: 6px 14px; border: 2px dashed var(--c-ink-soft); border-radius: 99px; cursor: pointer;
+  background: transparent; color: var(--c-ink-soft); font: 700 13px "Mali", sans-serif;
+}
+.login-guest-btn:hover { background: var(--c-grape-soft); color: var(--c-ink); }
+.login-note { color: var(--c-ink-soft); font: 600 11px "Mali", sans-serif; }
+
+/* การ์ดผู้เล่นบนเมนูหลัก: รูป/ชื่อ Google + ปุ่มบัญชี */
+.summary-avatar { overflow: hidden; flex: 0 0 auto; }
+.summary-avatar img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.player-summary-card small.is-user {
+  color: var(--c-grape); font: 800 12px "Mali", sans-serif; letter-spacing: 0;
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+/* ปุ่มบัญชีบนการ์ดผู้เล่น (เข้าสู่ระบบ / ออกจากระบบ) + ปุ่มออกจากระบบในหน้าตั้งค่า */
+.account-btn, .logout-btn {
+  display: inline-flex; align-items: center; gap: 5px; cursor: pointer;
+  border: 2px solid var(--c-ink); border-radius: 99px; box-shadow: 0 3px 0 var(--c-ink);
+  color: var(--c-ink); font: 700 12px/1.25 "Mali", sans-serif; text-align: left;
+  transition: transform .1s, box-shadow .1s, background .15s;
+}
+.account-btn {
+  align-self: flex-start; max-width: 100%; margin-top: 6px; padding: 5px 12px;
+  background: var(--c-sky-soft); white-space: normal;
+}
+/* กันกฎ .player-summary-card div:nth-child(2) span ใน style.css มาทับไอคอนในปุ่ม */
+.player-summary-card div .account-btn span, .setting-row .logout-btn span { display: inline; font: inherit; font-size: 14px; color: inherit; }
+.account-btn:hover { background: #c9effa; }
+.account-btn.is-logout, .logout-btn { background: var(--c-pink-soft); }
+.account-btn.is-logout:hover, .logout-btn:hover { background: #ffc9e1; }
+.account-btn:active, .logout-btn:active { transform: translateY(3px); box-shadow: 0 0 0 var(--c-ink); }
+.account-btn:disabled, .logout-btn:disabled { opacity: .55; cursor: progress; transform: none; }
+.logout-btn { flex: 0 0 auto; padding: 8px 16px; font-size: 13px; white-space: nowrap; }
+.setting-account-row > span { min-width: 0; }
+.setting-account-row small { overflow-wrap: anywhere; }
+
+@media (max-width: 600px) {
+  .login-title { font-size: 28px; }
+  .login-google-btn { font-size: 15px; }
+  .account-btn { font-size: 11px; padding: 4px 10px; }
+  .player-summary-card { flex-wrap: nowrap; }
+  .player-summary-card > div:nth-child(2) { flex: 1 1 auto; }
+}
+@media (max-width: 420px) {
+  .setting-account-row { flex-wrap: wrap; gap: 10px; }
+  .setting-account-row .logout-btn { width: 100%; justify-content: center; }
+}
+.login-card { margin-top: 56px; } /* เว้นที่ให้โลโก้ที่ยื่นขึ้นไปด้านบน */

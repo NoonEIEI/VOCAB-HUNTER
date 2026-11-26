@@ -3,7 +3,7 @@
   "private": true,
   "version": "1.0.0",
   "type": "module",
-"homepage": "https://NoonEIEI.github.io/VOCAB-HUNTER/",
+  "homepage": "https://NoonEIEI.github.io/VOCAB-HUNTER/",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
@@ -16,6 +16,7 @@
     "vite-plugin-pwa": "^1.0.3"
   },
   "dependencies": {
-    "dexie": "^4.4.7"
+    "dexie": "^4.4.7",
+    "firebase": "^13.4.0"
   }
 }

@@ -59,6 +59,7 @@ class SoundFX {
 class VocabHunterGame {
   constructor() {
     this.STORAGE_KEY = "vocab_hunter_endless_save_v3";
+    this.SAVE_OWNER_KEY = "vocab_hunter_save_owner"; // uid เจ้าของข้อมูลใน STORAGE_KEY (ว่าง = เล่นไม่ล็อกอิน)
     this.levels = window.LEVELS_DATA || [];
     this.currentLevelIndex = 0;
 
@@ -99,6 +100,7 @@ class VocabHunterGame {
 
     this.updateDailyStreak();
     this.initUI();
+    this.initAuth();
     this.arcade = new VocabArcade(this);
     this.loadLevel(0, false);
   }
@@ -132,6 +134,16 @@ class VocabHunterGame {
   }
 
   loadSaveData() {
+    try {
+      const raw = localStorage.getItem(this.STORAGE_KEY);
+      return this.normalizeSaveData(raw ? JSON.parse(raw) : null);
+    } catch (_) {
+      return this.normalizeSaveData(null);
+    }
+  }
+
+  // เติมค่าเริ่มต้นให้ครบทุกฟิลด์ (ใช้ทั้งข้อมูลจาก localStorage และจาก Firestore)
+  normalizeSaveData(saved) {
     const defaultData = {
       totalStars: 0,
       radarTokens: 3,
@@ -152,20 +164,327 @@ class VocabHunterGame {
       dailyBestStreak: 0,
       foundByMap: {}
     };
-    try {
-      const raw = localStorage.getItem(this.STORAGE_KEY);
-      if (!raw) return defaultData;
-      const saved = JSON.parse(raw);
-      return { ...defaultData, ...saved, recentQuestIds: saved.recentQuestIds || {}, lastRoundQuestIds: saved.lastRoundQuestIds || {}, reviewQueue: saved.reviewQueue || [], mistakeCounts: saved.mistakeCounts || {}, achievements: saved.achievements || [] };
-    } catch (_) {
-      return defaultData;
-    }
+    if (!saved || typeof saved !== "object") return defaultData;
+    return { ...defaultData, ...saved, recentQuestIds: saved.recentQuestIds || {}, lastRoundQuestIds: saved.lastRoundQuestIds || {}, reviewQueue: saved.reviewQueue || [], mistakeCounts: saved.mistakeCounts || {}, achievements: saved.achievements || [] };
   }
 
   persistSaveData() {
     try {
       localStorage.setItem(this.STORAGE_KEY, JSON.stringify(this.saveData));
     } catch (_) {}
+    this.scheduleCloudSave();
+  }
+
+  // =================== Google Login + Firestore (src/auth.js → window.VHAuth) ===================
+  // auth.js เป็น module script ซึ่งรันทีหลังไฟล์นี้ → ห้ามเรียก VHAuth ทันทีตอนเริ่ม
+  // ให้ฟัง event "vhauth-change" แทน และเช็ก window.VHAuth ทุกครั้งก่อนใช้
+  initAuth() {
+    this.cloudSyncUid = null; // uid ที่ซิงก์ข้อมูลตอนล็อกอินเสร็จแล้ว (ก่อนหน้านั้นห้ามอัปโหลด)
+    this.cloudSaveTimer = null;
+    this.introDone = false;
+
+    document.getElementById("googleLoginBtn").addEventListener("click", () => this.loginWithGoogle());
+    document.getElementById("guestPlayBtn").addEventListener("click", () => {
+      this.hideLoginScreen();
+      this.showToast("💾 เล่นแบบไม่ล็อกอิน — ความคืบหน้าเก็บไว้ในเครื่องนี้");
+    });
+    document.getElementById("accountBtn").addEventListener("click", () => {
+      if (window.VHAuth?.user) this.logoutGoogle();
+      else this.loginWithGoogle();
+    });
+    document.getElementById("settingsLogoutBtn").addEventListener("click", () => this.logoutGoogle());
+
+    window.addEventListener("vhauth-change", (e) => this.handleAuthChange(e.detail?.user || null));
+    // ถ้า auth.js พร้อมก่อน constructor นี้ (ไม่น่าเกิด แต่กันไว้)
+    if (window.VHAuth?.ready) this.handleAuthChange(window.VHAuth.user);
+
+    // ออกจากหน้า/สลับแอป → ส่งข้อมูลที่ค้างอยู่ขึ้นคลาวด์ทันที
+    const flush = () => { if (this.cloudSaveTimer) this.flushCloudSave(); };
+    window.addEventListener("pagehide", flush);
+    document.addEventListener("visibilitychange", () => { if (document.visibilityState === "hidden") flush(); });
+
+    this.updateAccountUI();
+    // intro ถูกกดก่อนที่เกมจะสร้างเสร็จ (กรณีกด Enter เร็วมาก)
+    if (window.__vhIntroDone) setTimeout(() => this.afterIntro(), 0);
+  }
+
+  // เรียกจาก intro.js หลังกดเริ่มเกม
+  afterIntro() {
+    this.introDone = true;
+    const decide = () => {
+      if (!window.VHAuth?.user) this.showLoginScreen();
+    };
+    if (window.VHAuth?.ready) return decide();
+    // ยังไม่รู้สถานะล็อกอิน → รอ event สูงสุด 3 วินาที (ออฟไลน์/โหลด Firebase ไม่ได้ ก็ยังเล่นได้)
+    let settled = false;
+    const onReady = () => { if (!settled) { settled = true; decide(); } };
+    window.addEventListener("vhauth-change", onReady, { once: true });
+    setTimeout(onReady, 3000);
+  }
+
+  showLoginScreen() {
+    const el = document.getElementById("loginScreen");
+    document.getElementById("loginError").classList.add("hidden");
+    el.classList.remove("hidden", "leaving");
+  }
+
+  hideLoginScreen() {
+    const el = document.getElementById("loginScreen");
+    if (el.classList.contains("hidden")) return;
+    el.classList.add("leaving");
+    setTimeout(() => el.classList.add("hidden"), 400);
+  }
+
+  async loginWithGoogle() {
+    const errEl = document.getElementById("loginError");
+    const btn = document.getElementById("googleLoginBtn");
+    errEl.classList.add("hidden");
+    if (!window.VHAuth) {
+      errEl.textContent = "ระบบล็อกอินยังไม่พร้อม ลองใหม่อีกครั้ง หรือเล่นโดยไม่ล็อกอินไปก่อน";
+      errEl.classList.remove("hidden");
+      return;
+    }
+    btn.disabled = true;
+    try {
+      await window.VHAuth.login(); // สำเร็จแล้ว handleAuthChange จะทำงานต่อเอง
+    } catch (err) {
+      const code = err?.code || "";
+      if (code === "auth/popup-closed-by-user" || code === "auth/cancelled-popup-request") return;
+      const msg = code === "auth/popup-blocked" ? "เบราว์เซอร์บล็อกหน้าต่างล็อกอิน กรุณาอนุญาต pop-up แล้วลองใหม่"
+        : code === "auth/network-request-failed" ? "เชื่อมต่ออินเทอร์เน็ตไม่ได้ ลองใหม่อีกครั้ง หรือเล่นโดยไม่ล็อกอินไปก่อน"
+        : code === "auth/unauthorized-domain" ? "โดเมนนี้ยังไม่ได้รับอนุญาตใน Firebase (Authentication → Settings → Authorized domains)"
+        : "เข้าสู่ระบบไม่สำเร็จ ลองใหม่อีกครั้ง";
+      console.warn("[VHAuth] login error", err);
+      if (!document.getElementById("loginScreen").classList.contains("hidden")) {
+        errEl.textContent = msg;
+        errEl.classList.remove("hidden");
+      } else {
+        this.showToast(msg);
+      }
+    } finally {
+      btn.disabled = false;
+    }
+  }
+
+  // ออกจากระบบ: ยืนยัน → บันทึกขึ้นคลาวด์ครั้งสุดท้าย (รอให้เสร็จ) → signOut
+  // → handleAuthChange(null) จะล้างข้อมูลในเครื่องและพากลับหน้าล็อกอิน
+  async logoutGoogle() {
+    const user = window.VHAuth?.user;
+    if (!user || this.loggingOut) return;
+    const offline = navigator.onLine === false;
+    const ask = offline
+      ? "ตอนนี้ออฟไลน์อยู่ ความคืบหน้าที่ยังไม่ได้ซิงก์ขึ้นคลาวด์อาจหายไป\nต้องการออกจากระบบใช่ไหม?"
+      : `ออกจากระบบบัญชี ${user.displayName} ใช่ไหม?\nความคืบหน้าจะถูกบันทึกขึ้นคลาวด์ก่อนออก`;
+    if (!window.confirm(ask)) return;
+
+    this.loggingOut = true;
+    this.setLogoutButtonsBusy(true);
+    this.showToast("☁️ กำลังบันทึกความคืบหน้าครั้งสุดท้าย...");
+    clearTimeout(this.cloudSaveTimer);
+    this.cloudSaveTimer = null;
+    try {
+      // ถ้าตอนล็อกอินซิงก์ไม่สำเร็จ (เช่น ออฟไลน์) ลองซิงก์ตามกติกาเดิมอีกครั้งก่อน
+      // เพื่อไม่ให้ข้อมูลในเครื่องที่ยังไม่ได้เทียบดาวไปเขียนทับคลาวด์
+      if (this.cloudSyncUid !== user.uid) await this.syncProgressOnLogin(user, { quiet: true });
+      if (this.cloudSyncUid === user.uid) {
+        const ok = await window.VHAuth.saveProgressNow(this.saveData);
+        if (!ok) console.warn("[VHAuth] บันทึกครั้งสุดท้ายไม่สำเร็จ — ออกจากระบบต่อ");
+      }
+      this.cloudSyncUid = null; // หยุดอัปโหลดทุกอย่างหลังจากนี้
+      this.pendingLogoutReset = true; // ให้ handleAuthChange(null) ล้างข้อมูล + กลับหน้าล็อกอินเสมอ
+      await window.VHAuth.logout();
+    } catch (err) {
+      this.pendingLogoutReset = false;
+      console.warn("[VHAuth] logout error", err);
+      this.showToast("ออกจากระบบไม่สำเร็จ ลองใหม่อีกครั้ง");
+      if (window.VHAuth?.user) this.cloudSyncUid = user.uid; // ยังล็อกอินอยู่ → ซิงก์ต่อ
+    } finally {
+      this.loggingOut = false;
+      this.setLogoutButtonsBusy(false);
+    }
+  }
+
+  setLogoutButtonsBusy(busy) {
+    ["accountBtn", "settingsLogoutBtn"].forEach((id) => {
+      const b = document.getElementById(id);
+      if (b) b.disabled = busy;
+    });
+  }
+
+  handleAuthChange(user) {
+    this.updateAccountUI();
+    if (!user) {
+      this.cloudSyncUid = null;
+      clearTimeout(this.cloudSaveTimer);
+      this.cloudSaveTimer = null;
+      // ข้อมูลในเครื่องเป็นของบัญชีที่เพิ่งออก (หรือหมดเซสชันไปเอง) → ล้างทิ้ง ไม่ให้ปนกับบัญชีอื่น
+      const byButton = !!this.pendingLogoutReset;
+      this.pendingLogoutReset = false;
+      const hadOwner = byButton || !!this.getSaveOwner();
+      if (hadOwner) this.resetLocalProgress();
+      if (hadOwner && (this.introDone || byButton)) {
+        this.closeAllPanels();
+        this.showLoginScreen();
+        this.showToast("👋 ออกจากระบบแล้ว — ข้อมูลของบัญชีนี้ยังอยู่บนคลาวด์ครบ");
+      }
+      return;
+    }
+    if (this.introDone) this.hideLoginScreen();
+    if (this.cloudSyncUid !== user.uid) this.syncProgressOnLogin(user);
+  }
+
+  // เจ้าของข้อมูลใน localStorage: uid ของบัญชีที่ซิงก์ไว้ / ว่าง = ข้อมูลของการเล่นแบบไม่ล็อกอิน
+  getSaveOwner() {
+    try { return localStorage.getItem(this.SAVE_OWNER_KEY) || ""; } catch (_) { return ""; }
+  }
+
+  setSaveOwner(uid) {
+    try {
+      if (uid) localStorage.setItem(this.SAVE_OWNER_KEY, uid);
+      else localStorage.removeItem(this.SAVE_OWNER_KEY);
+    } catch (_) {}
+  }
+
+  // เอาด่านที่ผู้เล่นสร้างเอง (customQuests) ของ saveData ชุดเก่าออกจากด่าน
+  removeCustomQuests(oldData) {
+    const custom = oldData?.customQuests || {};
+    this.levels.forEach((lvl) => {
+      const ids = new Set((custom[lvl.mapId] || []).map((q) => q.id));
+      if (ids.size) lvl.quests = lvl.quests.filter((q) => !ids.has(q.id));
+    });
+  }
+
+  // ล้างความคืบหน้าในเครื่อง → saveData เริ่มต้น และรีเซ็ต HUD/เมนู (ไม่แตะ IndexedDB)
+  resetLocalProgress() {
+    try { localStorage.removeItem(this.STORAGE_KEY); } catch (_) {}
+    this.setSaveOwner("");
+    this.removeCustomQuests(this.saveData);
+    this.saveData = this.normalizeSaveData(null);
+    this.stopDailyTimer();
+    this.dailyMode = false;
+    this.dailyExpired = false;
+    const select = document.getElementById("levelSelect");
+    if (select) select.value = 0;
+    this.loadLevel(0, false);
+    this.renderLevelCards();
+    this.updateHUD();
+    this.updateStatsScreen();
+  }
+
+  // ปิดทุกหน้า/ป๊อปอัปที่เปิดค้าง แล้วกลับเมนูหลัก (ใต้หน้าล็อกอิน)
+  closeAllPanels() {
+    ["speakModal", "victoryModal", "devQuestModal"].forEach((id) => document.getElementById(id)?.classList.add("hidden"));
+    try { if (this.speech.isListening) this.speech.recognition?.stop(); } catch (_) {}
+    try { window.speechSynthesis?.cancel(); } catch (_) {}
+    if (this.arcade) this.arcade.session = null;
+    this.activeQuest = null;
+    this.showMenuScreen();
+  }
+
+  // ตามหลัก syncAndFetchTasks: ดึงจากคลาวด์ → เลือกข้อมูลที่ totalStars มากกว่า → ส่งกลับให้ตรงกัน
+  async syncProgressOnLogin(user, { quiet = false } = {}) {
+    if (this.syncingUid === user.uid) return;
+    this.syncingUid = user.uid;
+    try {
+      // ข้อมูลในเครื่องเป็นของบัญชีอื่น → ทิ้งก่อน (ไม่เอามาเทียบ/อัปโหลดให้บัญชีนี้)
+      const owner = this.getSaveOwner();
+      if (owner && owner !== user.uid) this.resetLocalProgress();
+
+      const cloud = await window.VHAuth.loadProgress();
+      if (window.VHAuth.user?.uid !== user.uid) return; // ระหว่างรอ ผู้ใช้ออกจากระบบ/เปลี่ยนบัญชี
+      const localStars = Number(this.saveData.totalStars) || 0;
+      const cloudStars = Number(cloud?.totalStars) || 0;
+
+      // ดาวเท่ากัน → ใช้ของคลาวด์ (กันข้อมูลเริ่มต้นในเครื่องไปทับความคืบหน้าอื่นบนคลาวด์)
+      if (cloud && cloudStars >= localStars) {
+        this.applyCloudSaveData(cloud);
+        if (!quiet) this.showToast(`☁️ โหลดความคืบหน้าจากคลาวด์แล้ว (⭐ ${cloudStars.toLocaleString()})`);
+      } else {
+        await window.VHAuth.saveProgress(this.saveData);
+        if (!quiet) this.showToast(cloud ? "☁️ ซิงก์ความคืบหน้าในเครื่องขึ้นคลาวด์แล้ว" : "☁️ บันทึกความคืบหน้าขึ้นคลาวด์ครั้งแรกแล้ว");
+      }
+      this.setSaveOwner(user.uid); // จากนี้ข้อมูลในเครื่องเป็นของบัญชีนี้
+      this.cloudSyncUid = user.uid;
+    } catch (err) {
+      // ออฟไลน์/Firebase error → เล่นต่อจากข้อมูลในเครื่อง แล้วลองซิงก์ใหม่ตอนกลับมาออนไลน์
+      console.warn("[VHAuth] sync error — เล่นต่อด้วยข้อมูลในเครื่อง", err);
+      if (quiet) return;
+      this.showToast("📴 ซิงก์คลาวด์ไม่ได้ตอนนี้ — เล่นต่อด้วยข้อมูลในเครื่องได้เลย");
+      window.addEventListener("online", () => {
+        if (window.VHAuth?.user?.uid === user.uid && this.cloudSyncUid !== user.uid) this.syncProgressOnLogin(user);
+      }, { once: true });
+    } finally {
+      this.syncingUid = null;
+    }
+  }
+
+  applyCloudSaveData(cloud) {
+    this.removeCustomQuests(this.saveData);
+    this.saveData = this.normalizeSaveData(cloud);
+    try {
+      localStorage.setItem(this.STORAGE_KEY, JSON.stringify(this.saveData));
+    } catch (_) {}
+    this.mergeCustomQuests();
+    this.updateDailyStreak();
+    this.updateCollectionMeter();
+    this.renderLevelCards();
+    this.updateHUD();
+    if (document.getElementById("statsScreen")?.classList.contains("active")) this.updateStatsScreen();
+  }
+
+  // บันทึกขึ้น Firestore ไม่บ่อยกว่าทุก 3 วินาที: ครั้งแรกตั้งเวลาไว้ การเรียกซ้ำระหว่างรอจะถูกรวบ
+  // แล้วส่ง saveData ล่าสุดครั้งเดียวตอนครบเวลา
+  scheduleCloudSave() {
+    if (!this.cloudSyncUid || this.cloudSaveTimer) return;
+    this.cloudSaveTimer = setTimeout(() => this.flushCloudSave(), 3000);
+  }
+
+  flushCloudSave() {
+    clearTimeout(this.cloudSaveTimer);
+    this.cloudSaveTimer = null;
+    if (!this.cloudSyncUid || window.VHAuth?.user?.uid !== this.cloudSyncUid) return Promise.resolve();
+    return window.VHAuth.saveProgress(this.saveData).catch((err) => {
+      console.warn("[VHAuth] cloud save error (เก็บในเครื่องแล้ว)", err);
+    });
+  }
+
+  updateAccountUI() {
+    const user = window.VHAuth?.user || null;
+    const avatar = document.getElementById("menuAvatar");
+    const label = document.getElementById("menuPlayerLabel");
+    const btn = document.getElementById("accountBtn");
+    if (!avatar || !btn) return;
+    if (user) {
+      avatar.textContent = "";
+      if (user.photoURL) {
+        const img = document.createElement("img");
+        img.src = user.photoURL;
+        img.alt = "";
+        img.referrerPolicy = "no-referrer"; // รูปโปรไฟล์ Google บางครั้งไม่โหลดถ้าส่ง referrer
+        img.onerror = () => { avatar.textContent = "🧑‍🚀"; };
+        avatar.appendChild(img);
+      } else {
+        avatar.textContent = "🧑‍🚀";
+      }
+      label.textContent = user.displayName;
+      label.classList.add("is-user");
+      btn.innerHTML = `<span aria-hidden="true">🚪</span> ออกจากระบบ`;
+      btn.classList.add("is-logout");
+    } else {
+      avatar.textContent = "🧑‍🚀";
+      label.textContent = "YOUR ADVENTURER";
+      label.classList.remove("is-user");
+      btn.innerHTML = `<span aria-hidden="true">☁️</span> เข้าสู่ระบบเพื่อบันทึกขึ้นคลาวด์`;
+      btn.classList.remove("is-logout");
+    }
+
+    // หน้าตั้งค่า: แถวบัญชี + ปุ่มออกจากระบบ แสดงเฉพาะตอนล็อกอิน
+    const row = document.getElementById("settingsAccountRow");
+    if (row) {
+      row.classList.toggle("hidden", !user);
+      const name = document.getElementById("settingsAccountName");
+      if (name) name.textContent = user ? `${user.displayName}${user.email ? ` • ${user.email}` : ""}` : "";
+    }
   }
 
   // ---------- IndexedDB (Dexie) — โหลดจาก src/db.js ซึ่งเป็น module script ----------
@@ -211,7 +530,9 @@ class VocabHunterGame {
     this.levels.forEach((lvl) => {
       const savedCustom = this.saveData.customQuests?.[lvl.mapId];
       if (Array.isArray(savedCustom) && savedCustom.length > 0) {
-        lvl.quests.push(...savedCustom);
+        // ข้าม id ที่มีอยู่แล้ว (เรียกซ้ำได้ตอนโหลดข้อมูลจากคลาวด์)
+        const existing = new Set(lvl.quests.map((q) => q.id));
+        lvl.quests.push(...savedCustom.filter((q) => !existing.has(q.id)));
       }
     });
   }
