@@ -32,6 +32,9 @@
     screen.classList.add("leaving");
     setTimeout(() => screen.remove(), 650);
     document.removeEventListener("keydown", onKey);
+    // ต่อด้วยหน้าล็อกอิน (ถ้ายังไม่ล็อกอิน) — ถ้าเกมยังสร้างไม่เสร็จ ให้ app.js มาเช็กธงนี้เอง
+    if (window.game?.afterIntro) window.game.afterIntro();
+    else window.__vhIntroDone = true;
   }
   function onKey(e) {
     if (e.key === "Enter" || e.key === " ") {
